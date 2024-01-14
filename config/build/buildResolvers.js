@@ -3,6 +3,7 @@ export default function buildResolvers(options) {
     extensions: ['.jsx', '.js'],
     alias: {
       '@': options.paths.src,
+      '@assets': options.paths.assets,
     },
   }
 }

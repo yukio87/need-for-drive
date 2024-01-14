@@ -1,0 +1,16 @@
+@import 'normalize.css';
+@import './base/reset';
+@import './abstracts/mixins';
+
+:root {
+  --c-black: rgba(18 18 18);
+  --c-green: rgba(14 194 97);
+  --c-grey-dark: rgba(153 153 153);
+  --c-grey-light: rgba(238 238 238);
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  color: var(--c-black);
+}

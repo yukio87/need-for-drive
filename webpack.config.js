@@ -3,9 +3,7 @@ import { fileURLToPath } from 'url'
 
 import buildWebpack from './config/build/buildWebpack.js'
 
-// eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url)
-// eslint-disable-next-line no-underscore-dangle
 const __dirname = dirname(__filename)
 
 export default (env) => {
@@ -15,6 +13,7 @@ export default (env) => {
     public: path.resolve(__dirname, 'public'),
     output: path.resolve(__dirname, 'build'),
     src: path.resolve(__dirname, 'src'),
+    assets: path.resolve(__dirname, 'src/assets/'),
   }
 
   const config = buildWebpack({

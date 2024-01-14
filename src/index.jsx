@@ -1,3 +1,6 @@
+import './sass/main.scss'
+import './fonts/fonts.scss'
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 

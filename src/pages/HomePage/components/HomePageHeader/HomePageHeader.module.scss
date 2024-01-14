@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 8px;
+    padding: 16px 16px 0;
+  }
+}
+
+.image-menu {
+  cursor: pointer;
+  width: 33.5px;
+  height: 33.5px;
+  color: var(--c-black);
+
+  &:hover {
+    color: var(--c-green);
+    transition: all 0.2s linear;
+  }
+
+  &:active {
+    color: var(--c-black);
+  }
+}
+
+.location {
+  @media (max-width: 767px) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    justify-self: end;
+  }
+}
