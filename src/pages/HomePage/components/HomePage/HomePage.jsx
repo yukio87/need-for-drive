@@ -1,10 +1,10 @@
 import HomePageSlider from '../../../../modules/HomePageSlider/components/HomePageSlider/HomePageSlider'
 import HomePageContent from '../HomePageContent/HomePageContent'
-import styles from './HomePage.module.scss'
+import { layout } from './HomePage.module.scss'
 
 function HomePage() {
   return (
-    <div className={styles.layout}>
+    <div className={layout}>
       <HomePageContent />
       <HomePageSlider />
     </div>

@@ -1,2 +1,0 @@
-export const WIDTH_SIDEBAR = 64
-export const COLOR_TRANSITION_COEFFICIENT = 0.57

@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 
-import styles from './HomePageMain.module.scss'
+import { content, main } from './HomePageMain.module.scss'
 
 function HomePageMain() {
   return (
-    <main className={styles.main}>
-      <div className={styles.content}>
+    <main className={main}>
+      <div className={content}>
         <h1>Каршеринг</h1>
         <h1>Need for drive</h1>
         <p>Поминутная аренда авто твоего города</p>

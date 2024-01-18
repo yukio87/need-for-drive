@@ -1,11 +1,11 @@
 import Footer from '../HomePageFooter/HomePageFooter'
 import Header from '../HomePageHeader/HomePageHeader'
 import Main from '../HomePageMain/HomePageMain'
-import styles from './HomePageContent.module.scss'
+import { content } from './HomePageContent.module.scss'
 
 function HomePageContent() {
   return (
-    <div className={styles.content}>
+    <div className={content}>
       <Header />
       <Main />
       <Footer />

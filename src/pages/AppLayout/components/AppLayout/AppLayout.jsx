@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 import AppSidebar from '../../../../components/AppSidebar/AppSidebar'
 import AppModal from '../../../../modules/AppModal/components/AppModal/AppModal'
-import styles from './AppLayout.module.scss'
+import { appLayout } from './AppLayout.module.scss'
 
 export const ModalContext = createContext()
 
@@ -19,7 +19,7 @@ function AppLayout() {
 
   return (
     <ModalContext.Provider value={modalContextValue}>
-      <div className={styles['app-layout']}>
+      <div className={appLayout}>
         {isOpen && <AppModal setIsOpen={setIsOpen} />}
         <AppSidebar setIsOpen={setIsOpen} />
         <Outlet />

@@ -1,7 +1,7 @@
-import styles from './HomePageSlider.module.scss'
+import { slider } from './HomePageSlider.module.scss'
 
 function HomePageSlider() {
-  return <div className={styles.slider}>Slider</div>
+  return <div className={slider}>Slider</div>
 }
 
 export default HomePageSlider

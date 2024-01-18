@@ -1,12 +1,12 @@
 import ImageLocation from '@assets/location.svg'
 
-import styles from './Location.module.scss'
+import { imageLocation, location, textLocation } from './Location.module.scss'
 
 function Location() {
   return (
-    <div className={styles.location}>
-      <ImageLocation className={styles['image-location']} />
-      <span className={styles['text-location']}>Ульяновск</span>
+    <div className={location}>
+      <ImageLocation className={imageLocation} />
+      <span className={textLocation}>Ульяновск</span>
     </div>
   )
 }

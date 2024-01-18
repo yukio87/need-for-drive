@@ -1,26 +1,24 @@
 import ImageMenu from '@assets/menu_btn.svg'
 import { useContext } from 'react'
+import { useSelector } from 'react-redux'
 
-import useDeviceDetection from '../../../../customHooks/useDeviceDetection'
+import { getDevice } from '../../../../store/appSlice'
 import Location from '../../../../ui/Location'
 import Logo from '../../../../ui/Logo'
 import { ModalContext } from '../../../AppLayout/components/AppLayout/AppLayout'
-import styles from './HomePageHeader.module.scss'
+import { header, imageMenu, location } from './HomePageHeader.module.scss'
 
 function HomePageHeader() {
-  const device = useDeviceDetection()
+  const device = useSelector(getDevice)
   const { setIsOpen } = useContext(ModalContext)
 
   return (
-    <header className={styles.header}>
+    <header className={header}>
       {device === 'mobile' && (
-        <ImageMenu
-          onClick={() => setIsOpen(true)}
-          className={styles['image-menu']}
-        />
+        <ImageMenu onClick={() => setIsOpen(true)} className={imageMenu} />
       )}
       <Logo />
-      <div className={styles.location}>
+      <div className={location}>
         <Location />
       </div>
     </header>

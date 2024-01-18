@@ -1,7 +1,7 @@
-import styles from './Logo.module.scss'
+import { logo } from './Logo.module.scss'
 
 function Logo() {
-  return <div className={styles.logo}>Need for drive</div>
+  return <div className={logo}>Need for drive</div>
 }
 
 export default Logo
