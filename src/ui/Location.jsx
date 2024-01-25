@@ -1,4 +1,4 @@
-import ImageLocation from '@assets/location.svg'
+import ImageLocation from '@assets/icons/location.svg'
 
 import { imageLocation, location, textLocation } from './Location.module.scss'
 

@@ -1,15 +1,17 @@
-import { createContext } from 'react'
+import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 
+import AppModal from '../../../../components/AppModal/AppModal'
 import AppSidebar from '../../../../components/AppSidebar/AppSidebar'
+import { getDevice } from '../../../../store/appSlice'
 import { appLayout } from './AppLayout.module.scss'
 
-export const ModalContext = createContext()
-
 function AppLayout() {
+  const device = useSelector(getDevice)
+
   return (
     <div className={appLayout}>
-      <AppSidebar />
+      {device === 'mobile' ? <AppModal /> : <AppSidebar />}
       <Outlet />
     </div>
   )

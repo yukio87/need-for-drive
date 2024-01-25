@@ -15,16 +15,9 @@ function App() {
 
   useEffect(() => {
     window.addEventListener('resize', dispatchDevice)
+    dispatchDevice()
     return () => window.removeEventListener('resize', dispatchDevice)
-  }, [dispatchDevice])
-
-  useEffect(
-    () => window.addEventListener('load', dispatchDevice),
-    [dispatchDevice],
-    {
-      once: true,
-    },
-  )
+  }, [])
 
   const router = createBrowserRouter(routes)
 

@@ -1,16 +1,17 @@
-import ImageFacebook from '@assets/facebook.svg'
-import ImageInstagram from '@assets/instagram.svg'
-import ImageMenu from '@assets/menu_btn.svg'
-import ImageMenuClose from '@assets/menu_btn_close.svg'
-import ImageTelegram from '@assets/telegram.svg'
-import { useEffect, useState } from 'react'
+import ImageFacebook from '@assets/icons/facebook.svg'
+import ImageInstagram from '@assets/icons/instagram.svg'
+import IconClose from '@assets/icons/modal-close.svg'
+import IconOpen from '@assets/icons/modal-open.svg'
+import ImageTelegram from '@assets/icons/telegram.svg'
+import { useState } from 'react'
 
 import ChangeLang from '../../ui/ChangeLang'
 import {
   changeLang,
+  iconClose,
+  iconOpen,
   links,
-  menu,
-  menuClose,
+  modal,
   modalClose,
   modalOpen,
   socials,
@@ -18,24 +19,15 @@ import {
 } from './AppModal.module.scss'
 
 function AppModal() {
-  const [isOpen, setIsOpen] = useState(() =>
-    JSON.parse(window.sessionStorage.getItem('modalIsOpen')),
-  )
-
-  useEffect(() => {
-    window.sessionStorage.setItem('modalIsOpen', isOpen)
-  }, [isOpen])
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <>
+    <div className={modal}>
       <div>
         {isOpen ? (
-          <ImageMenuClose
-            onClick={() => setIsOpen(false)}
-            className={menuClose}
-          />
+          <IconClose onClick={() => setIsOpen(false)} className={iconClose} />
         ) : (
-          <ImageMenu onClick={() => setIsOpen(true)} className={menu} />
+          <IconOpen onClick={() => setIsOpen(true)} className={iconOpen} />
         )}
       </div>
 
@@ -65,7 +57,7 @@ function AppModal() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

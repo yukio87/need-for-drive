@@ -4,17 +4,9 @@
   justify-content: space-between;
 
   @media (max-width: 767px) {
-    display: grid;
-    grid-template-columns: auto auto;
-    row-gap: 8px;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
     padding: 16px 16px 0;
-  }
-}
-
-.location {
-  @media (max-width: 767px) {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    justify-self: end;
   }
 }

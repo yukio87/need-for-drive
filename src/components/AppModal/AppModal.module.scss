@@ -21,7 +21,15 @@
   }
 }
 
-.menu {
+.modal {
+  @media (max-width: 767px) {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+}
+
+.icon-open {
   @extend %icon;
 
   @media (max-width: 767px) {
@@ -33,7 +41,7 @@
   }
 }
 
-.menu-close {
+.icon-close {
   @extend %icon;
 }
 
