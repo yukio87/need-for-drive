@@ -1,0 +1,28 @@
+.change-lang {
+  transform: translateY(30%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 15.23px;
+  color: var(--c-green);
+
+  transition: all 0.2s linear;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--c-grey-light);
+    border-radius: 9999px;
+    outline: 1px solid var(--c-grey-light);
+  }
+
+  &:active {
+    color: var(--c-green);
+  }
+}

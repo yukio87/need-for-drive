@@ -34,8 +34,15 @@
     "no-underscore-dangle": "off",
     "no-warning-comments": "error",
     "no-console": "error",
-    "func-names": "off",
     "import/no-unresolved": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ]
   }
 }

@@ -1,0 +1,19 @@
+.location {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  color: var(--c-grey-dark);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.image-location {
+  width: 15px;
+  height: 18px;
+}
+
+.text-location {
+  line-height: 16.41px;
+}

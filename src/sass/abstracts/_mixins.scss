@@ -1,0 +1,46 @@
+@mixin style-button(
+  $fontSize: 18px,
+  $width: 250px,
+  $height: 48px,
+  $background: linear-gradient(to right, rgba(14, 194, 97), rgba(3, 159, 103)),
+  $color: rgba(255, 255, 255),
+  $fontWeight: 500,
+  $line-height: 21.09px
+) {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: $width;
+  height: $height;
+  padding: 0;
+
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $line-height;
+  color: $color;
+  text-decoration: none;
+
+  background: $background;
+  border: none;
+  border-radius: 8px;
+
+  transition: filter 0.2s linear;
+
+  &:hover,
+  &:focus {
+    filter: brightness(90%);
+  }
+
+  &:active {
+    filter: brightness(80%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--c-grey-light);
+    background-image: none;
+  }
+}
