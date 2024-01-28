@@ -1,0 +1,135 @@
+@import '../../../app/styles/sass/main';
+
+.slider {
+  width: 50%;
+
+  :global(.carousel-control-prev) {
+    width: 64px;
+
+    @media (max-width: 1439px) {
+      width: 32px;
+    }
+  }
+
+  :global(.carousel-control-next) {
+    width: 64px;
+
+    @media (max-width: 1439px) {
+      width: 32px;
+    }
+  }
+
+  :global(.carousel-control-prev):hover {
+    background-color: rgba(14 194 97 / 20%);
+  }
+
+  :global(.carousel-control-next):hover {
+    background-color: rgba(14 194 97 / 20%);
+  }
+
+  :global(.carousel-indicators button) {
+    width: 8px;
+    height: 8px;
+    background-color: var(--c-grey-light);
+    border-radius: 100%;
+  }
+
+  :global(.carousel-indicators .active) {
+    background-color: var(--c-green);
+  }
+
+  @media (max-width: 1439px) {
+    width: 43%;
+  }
+
+  @media (max-width: 1023px) {
+    display: none;
+  }
+}
+
+.carousel-item-1,
+.carousel-item-2,
+.carousel-item-3,
+.carousel-item-4 {
+  width: 100%;
+  height: 100dvh;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.carousel-item-1 {
+  background-image: url('../assets/images/car1.jpg');
+}
+
+.carousel-item-2 {
+  background-image: url('../assets/images/car2.jpg');
+}
+
+.carousel-item-3 {
+  background-image: url('../assets/images/car3.jpg');
+}
+
+.carousel-item-4 {
+  background-image: url('../assets/images/car4.jpg');
+}
+
+.content {
+  padding: 237px 96px 0;
+
+  h2 {
+    margin-bottom: 8px;
+
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 46.88px;
+    color: rgba(255 255 255);
+
+    @media (max-width: 1439px) {
+      font-size: 32px;
+      line-height: 37.5px;
+    }
+  }
+
+  p {
+    margin-bottom: 32px;
+
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 21.6px;
+    color: var(--c-grey-light);
+
+    @media (max-width: 1439px) {
+      font-size: 22px;
+      line-height: 22px;
+    }
+  }
+
+  .button-item-1,
+  .button-item-2,
+  .button-item-3,
+  .button-item-4 {
+    @include style-button($width: 164px, $color: var(--c-grey-light));
+  }
+
+  .button-item-1 {
+    background: linear-gradient(to right, rgba(19 73 63), rgba(12 123 27));
+  }
+
+  .button-item-2 {
+    background: linear-gradient(to right, rgba(19 41 73), rgba(12 123 103));
+  }
+
+  .button-item-3 {
+    background: linear-gradient(to right, rgba(73 48 19), rgba(123 12 59));
+  }
+
+  .button-item-4 {
+    background: linear-gradient(to right, rgba(40 19 73), rgba(114 12 123));
+  }
+
+  @media (max-width: 1439px) {
+    padding: 277px 64px 0;
+  }
+}
