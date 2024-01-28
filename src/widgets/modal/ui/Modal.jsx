@@ -1,12 +1,10 @@
 import { ChangeLang } from '@features/change-lang'
+import { Icon } from '@shared/ui/icon'
 import { useState } from 'react'
 
 import ImageFacebook from '../assets/icons/facebook.svg'
-import IconClose from '../assets/icons/icon-close.svg'
-import IconOpen from '../assets/icons/icon-open.svg'
 import ImageInstagram from '../assets/icons/instagram.svg'
 import ImageTelegram from '../assets/icons/telegram.svg'
-// import Icon from '../Icon/Icon'
 import {
   changeLang,
   iconClose,
@@ -22,25 +20,19 @@ import {
 export function Modal() {
   const [isOpen, setIsOpen] = useState(false)
 
+  function handleClick() {
+    setIsOpen((s) => !s)
+  }
+
   return (
     <div className={modal}>
-      {/* <div className={isOpen ? iconClose : iconOpen}>
-        <Icon
-          name={isOpen ? 'iconClose' : 'iconOpen'}
-          svgProps={{
-            width: '32px',
-            height: '32px',
-          }}
-        />
-      </div> */}
-
-      <div>
-        {isOpen ? (
-          <IconClose onClick={() => setIsOpen(false)} className={iconClose} />
-        ) : (
-          <IconOpen onClick={() => setIsOpen(true)} className={iconOpen} />
-        )}
-      </div>
+      <button
+        className={isOpen ? iconClose : iconOpen}
+        onClick={handleClick}
+        type="button"
+      >
+        <Icon name={isOpen ? 'iconClose' : 'iconOpen'} />
+      </button>
 
       <div className={`${isOpen ? modalOpen : modalClose}`}>
         <div className={wrapper}>

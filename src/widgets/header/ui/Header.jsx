@@ -1,9 +1,9 @@
 import { ChangeLocation } from '@features/change-location'
 
-import Logo from '../Logo/Logo'
-import { header } from './HomePageHeader.module.scss'
+import { header } from './Header.module.scss'
+import Logo from './Logo'
 
-function HomePageHeader() {
+export function Header() {
   return (
     <header className={header}>
       <Logo />
@@ -11,5 +11,3 @@ function HomePageHeader() {
     </header>
   )
 }
-
-export default HomePageHeader

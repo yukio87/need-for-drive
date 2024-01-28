@@ -1,7 +1,8 @@
-@import '../../../../app/styles/sass/main';
+@import '../../../app/styles/sass/main';
 
 .main {
   margin: auto 0;
+  padding: 32px 64px;
 
   .content {
     @media (max-width: 767px) {
@@ -51,5 +52,13 @@
       width: 100%;
       border-radius: 0;
     }
+  }
+
+  @media (max-width: 1439px) {
+    padding: 32px 36px 32px 32px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 0;
   }
 }

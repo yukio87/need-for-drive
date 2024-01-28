@@ -1,6 +1,6 @@
-import { footer } from './HomePageFooter.module.scss'
+import { footer } from './Footer.module.scss'
 
-function HomePageFooter() {
+export function Footer() {
   return (
     <footer className={footer}>
       <span>© 2016-2019 «Need for drive»</span>
@@ -8,5 +8,3 @@ function HomePageFooter() {
     </footer>
   )
 }
-
-export default HomePageFooter

@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { content, main } from './HomePageMain.module.scss'
 
-function HomePageMain() {
+export function HomePageMain() {
   return (
     <main className={main}>
       <div className={content}>
@@ -10,9 +10,7 @@ function HomePageMain() {
         <h1>Need for drive</h1>
         <p>Поминутная аренда авто твоего города</p>
       </div>
-      <Link to="/location">Забронировать</Link>
+      <NavLink to="/location">Забронировать</NavLink>
     </main>
   )
 }
-
-export default HomePageMain

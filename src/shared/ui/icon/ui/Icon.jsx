@@ -1,12 +1,10 @@
 import IconClose from '../assets/icons/icon-close.svg'
 import IconOpen from '../assets/icons/icon-open.svg'
 
-export function Icon({ name, svgProps }) {
+export function Icon({ name, styles }) {
   const icons = {
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    iconClose: <IconClose {...svgProps} />,
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    iconOpen: <IconOpen {...svgProps} />,
+    iconClose: <IconClose {...styles} />,
+    iconOpen: <IconOpen {...styles} />,
   }
 
   return icons[name]

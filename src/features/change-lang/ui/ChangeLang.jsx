@@ -1,7 +1,7 @@
 import { changeLang } from './ChangeLang.module.scss'
 
 export function ChangeLang() {
-  const tempLanguage = 'Eng'
+  const tempLang = 'Eng'
 
-  return <div className={changeLang}>{tempLanguage}</div>
+  return <div className={changeLang}>{tempLang}</div>
 }
