@@ -2,9 +2,6 @@ import { ChangeLang } from '@features/change-lang'
 import { Icon } from '@shared/ui/icon'
 import { useState } from 'react'
 
-import ImageFacebook from '../assets/icons/facebook.svg'
-import ImageInstagram from '../assets/icons/instagram.svg'
-import ImageTelegram from '../assets/icons/telegram.svg'
 import {
   changeLang,
   iconClose,
@@ -20,19 +17,24 @@ import {
 export function Modal() {
   const [isOpen, setIsOpen] = useState(false)
 
-  function handleClick() {
-    setIsOpen((s) => !s)
+  const iconBasicStyles = {
+    width: '32px',
+    height: '32px',
+    color: 'white',
   }
 
   return (
     <div className={modal}>
-      <button
+      <div
         className={isOpen ? iconClose : iconOpen}
-        onClick={handleClick}
-        type="button"
+        onClick={() => setIsOpen((s) => !s)}
+        aria-hidden="true"
       >
-        <Icon name={isOpen ? 'iconClose' : 'iconOpen'} />
-      </button>
+        <Icon
+          name={isOpen ? 'iconClose' : 'iconOpen'}
+          styles={iconBasicStyles}
+        />
+      </div>
 
       <div className={`${isOpen ? modalOpen : modalClose}`}>
         <div className={wrapper}>
@@ -51,9 +53,9 @@ export function Modal() {
             </div>
           </div>
           <div className={socials}>
-            <ImageTelegram />
-            <ImageFacebook />
-            <ImageInstagram />
+            <Icon name="iconTelegram" styles={iconBasicStyles} />
+            <Icon name="iconFacebook" styles={iconBasicStyles} />
+            <Icon name="iconInstagram" styles={iconBasicStyles} />
           </div>
           <div className={changeLang}>
             <ChangeLang />

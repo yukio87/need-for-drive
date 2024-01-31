@@ -1,16 +1,17 @@
-import ImageLocation from '../assets/icons/location.svg'
-import {
-  imageLocation,
-  location,
-  textLocation,
-} from './ChangeLocation.module.scss'
+import { colorGreyDark } from '@shared/consts/colors'
+import { Icon } from '@shared/ui/icon'
+
+import { location, textLocation } from './ChangeLocation.module.scss'
 
 export function ChangeLocation() {
   const tempLocation = 'Ульяновск'
 
   return (
     <div className={location}>
-      <ImageLocation className={imageLocation} />
+      <Icon
+        name="iconLocation"
+        styles={{ width: '15px', height: '18px', color: colorGreyDark }}
+      />
       <span className={textLocation}>{tempLocation}</span>
     </div>
   )

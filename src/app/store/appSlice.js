@@ -18,4 +18,4 @@ export default appSlice.reducer
 
 export const { updateDevice } = appSlice.actions
 
-export const getDevice = (state) => state.app.device
+export const getDevice = (store) => store.app.device
