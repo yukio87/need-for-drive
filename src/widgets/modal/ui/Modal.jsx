@@ -1,6 +1,7 @@
 import { ChangeLang } from '@features/change-lang'
 import { Icon } from '@shared/ui/icon'
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import {
   changeLang,
@@ -10,12 +11,18 @@ import {
   modal,
   modalClose,
   modalOpen,
+  modalOpenHome,
   socials,
   wrapper,
 } from './Modal.module.scss'
 
 export function Modal() {
   const [isOpen, setIsOpen] = useState(false)
+  const { pathname } = useLocation()
+
+  function defineCssClassByPage() {
+    return pathname === '/' ? modalOpenHome : modalOpen
+  }
 
   const iconBasicStyles = {
     width: '32px',
@@ -36,7 +43,7 @@ export function Modal() {
         />
       </div>
 
-      <div className={`${isOpen ? modalOpen : modalClose}`}>
+      <div className={`${isOpen ? defineCssClassByPage() : modalClose}`}>
         <div className={wrapper}>
           <div className={links}>
             <div>

@@ -1,0 +1,30 @@
+@import '../../../app/styles/sass/main';
+
+.order {
+  color: var(--c-black);
+
+  h5 {
+    margin-bottom: 26px;
+    font-size: 18px;
+    line-height: 21.09px;
+
+    @media (max-width: 767px) {
+      margin-bottom: 0;
+    }
+  }
+
+  button {
+    @include style-button($width: 100%);
+  }
+}
+
+.order-container {
+  margin-bottom: 32px;
+}
+
+// .price {
+//   font-size: 16px;
+//   line-height: 16px;
+//   font-weight: 500;
+//   margin-bottom: 32px;
+// }

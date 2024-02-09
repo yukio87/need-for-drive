@@ -1,4 +1,4 @@
-.location {
+.geolocation {
   display: flex;
   gap: 4px;
   align-items: flex-end;
@@ -8,7 +8,7 @@
   }
 }
 
-.text-location {
+.text-geolocation {
   line-height: 16.41px;
   color: var(--c-grey-dark);
 }

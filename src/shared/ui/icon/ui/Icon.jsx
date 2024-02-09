@@ -1,3 +1,5 @@
+import IconArrow from '../assets/icons/arrow.svg'
+import IconClearInput from '../assets/icons/clear-input.svg'
 import IconFacebook from '../assets/icons/facebook.svg'
 import IconClose from '../assets/icons/icon-close.svg'
 import IconOpen from '../assets/icons/icon-open.svg'
@@ -13,6 +15,8 @@ export function Icon({ name, styles }) {
     iconInstagram: <IconInstagram {...styles} />,
     iconTelegram: <IconTelegram {...styles} />,
     iconLocation: <IconLocation {...styles} />,
+    iconArrow: <IconArrow {...styles} />,
+    iconClearInput: <IconClearInput {...styles} />,
   }
 
   return icons[name]
