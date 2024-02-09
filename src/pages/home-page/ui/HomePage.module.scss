@@ -1,0 +1,19 @@
+.layout {
+  display: flex;
+  width: 100%;
+}
+
+.content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 50%;
+  height: 100dvh;
+
+  @media (max-width: 1439px) {
+    width: 57%;
+  }
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
+}

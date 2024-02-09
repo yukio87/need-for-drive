@@ -1,0 +1,166 @@
+@import '../../../app/styles/sass/main';
+
+%icon {
+  cursor: pointer;
+  position: relative;
+  z-index: 101;
+
+  &:hover {
+    color: var(--c-green);
+    transition: all 0.2s linear;
+  }
+
+  &:active {
+    color: rgba(255 255 255);
+  }
+}
+
+.modal {
+  button {
+    padding: 0;
+
+    font: inherit;
+    color: inherit;
+
+    background-color: transparent;
+    border: none;
+  }
+
+  @media (max-width: 767px) {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+}
+
+.icon-open {
+  svg {
+    @extend %icon;
+
+    @media (max-width: 767px) {
+      color: var(--c-black);
+
+      &:active {
+        color: var(--c-black);
+      }
+    }
+  }
+}
+
+.icon-close {
+  svg {
+    @extend %icon;
+  }
+}
+
+.modal-close {
+  display: none;
+}
+
+.modal-open {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  padding-left: 128px;
+
+  @media (min-width: 1440px) {
+    background: linear-gradient(
+      to right,
+      rgba(17 21 24 / 100%)
+        calc((100vw - var(--width-sidebar)) / 2 + var(--width-sidebar)),
+      rgba(21 27 31 / 81%)
+        calc((100vw - var(--width-sidebar)) / 2 + var(--width-sidebar))
+    );
+  }
+
+  @media (max-width: 1439px) {
+    padding-left: 97px;
+    background: linear-gradient(
+      to right,
+      rgba(17 21 24 / 100%)
+        calc((100vw - var(--width-sidebar)) * 0.57 + var(--width-sidebar)),
+      rgba(21 27 31 / 81%)
+        calc((100vw - var(--width-sidebar)) * 0.57 + var(--width-sidebar))
+    );
+  }
+
+  @media (max-width: 1023px) {
+    padding-left: 97px;
+    background: rgba(17 21 24 / 100%) 100vw;
+  }
+
+  @media (max-width: 767px) {
+    align-items: flex-start;
+    padding: 80px 23px 28px;
+  }
+}
+
+.wrapper {
+  width: 100%;
+
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+  }
+}
+
+.links {
+  margin-bottom: 38px;
+
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 50px;
+  color: rgb(255 255 255);
+  text-transform: uppercase;
+
+  span {
+    transition: all 0.2s linear;
+  }
+
+  span:hover {
+    cursor: pointer;
+    color: var(--c-green);
+  }
+
+  @media (max-width: 1023px) {
+    font-size: 28px;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 22px;
+    line-height: 40px;
+  }
+}
+
+.socials {
+  display: flex;
+  gap: 24px;
+
+  svg {
+    cursor: pointer;
+    transition: all 0.2s linear;
+
+    &:hover {
+      color: var(--c-green);
+    }
+  }
+}
+
+.change-lang {
+  transform: translateX(-12px);
+  display: none;
+
+  @media (max-width: 767px) {
+    top: 17px;
+    left: 17px;
+    display: block;
+  }
+}

@@ -1,0 +1,64 @@
+@import '../../../app/styles/sass/main';
+
+.main {
+  margin: auto 0;
+  padding: 32px 64px;
+
+  .content {
+    @media (max-width: 767px) {
+      padding: 0 16px;
+    }
+  }
+
+  h1 {
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 65.63px;
+
+    @media (max-width: 767px) {
+      font-size: 32px;
+      line-height: 32px;
+    }
+  }
+
+  h1:nth-child(2) {
+    margin-bottom: 34px;
+    color: var(--c-green);
+
+    @media (max-width: 767px) {
+      margin-bottom: 16px;
+    }
+  }
+
+  p {
+    margin-bottom: 60px;
+
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 30.47px;
+    color: var(--c-grey-dark);
+
+    @media (max-width: 767px) {
+      margin-bottom: 32px;
+      font-size: 18px;
+      line-height: 21.09px;
+    }
+  }
+
+  a {
+    @include style-button();
+
+    @media (max-width: 767px) {
+      width: 100%;
+      border-radius: 0;
+    }
+  }
+
+  @media (max-width: 1439px) {
+    padding: 32px 36px 32px 32px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 0;
+  }
+}
