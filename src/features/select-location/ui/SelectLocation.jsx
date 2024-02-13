@@ -8,7 +8,6 @@ import {
 } from '@features/select-location'
 import { colorBlack } from '@shared/consts/colors'
 import { Icon } from '@shared/ui/icon'
-import { useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import toast from 'react-hot-toast'
@@ -52,10 +51,6 @@ export function SelectLocation() {
 
   const [curCity] = cityArr
   const [curPoint] = pointArr
-
-  useEffect(() => {
-    if (!curCity) dispatch(deletePoint())
-  }, [curCity, dispatch])
 
   return (
     <div className={container}>

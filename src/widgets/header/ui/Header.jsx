@@ -1,7 +1,7 @@
 import { ChangeGeolocation } from '@features/change-location'
 
+import { Logo } from './components'
 import { header } from './Header.module.scss'
-import Logo from './Logo'
 
 export function Header() {
   return (

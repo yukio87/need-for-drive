@@ -11,12 +11,14 @@ const locationSlice = createSlice({
   reducers: {
     changeCity(state, action) {
       state.cityArr = action.payload
+      state.pointArr = []
     },
     changePoint(state, action) {
       state.pointArr = action.payload
     },
     deleteCity(state) {
       state.cityArr = []
+      state.pointArr = []
     },
     deletePoint(state) {
       state.pointArr = []

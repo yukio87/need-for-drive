@@ -14,12 +14,12 @@
 
   @media (max-width: 767px) {
     flex-direction: row;
-    margin-bottom: 10px;
     gap: 3px;
+    margin-bottom: 10px;
   }
 }
 
-.option {
+.opt {
   align-self: flex-end;
 
   @media (max-width: 1203px) {
@@ -32,16 +32,20 @@
 }
 
 .dots {
-  flex-grow: 1;
   position: relative;
+  flex-grow: 1;
 
-  &:before {
+  &::before {
     content: '';
+
     position: absolute;
     bottom: 4px;
+
     width: 100%;
     height: 0;
+
     line-height: 0;
+
     border-bottom: 2px dotted var(--c-grey-dark);
 
     @media (max-width: 1203px) {
@@ -57,4 +61,5 @@
 .values {
   display: flex;
   flex-direction: column;
+  color: var(--c-grey-dark);
 }
