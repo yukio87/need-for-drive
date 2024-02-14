@@ -49,9 +49,6 @@ export function SelectLocation() {
   const cityArr = useSelector(getCityArr)
   const pointArr = useSelector(getPointArr)
 
-  const [curCity] = cityArr
-  const [curPoint] = pointArr
-
   return (
     <div className={container}>
       <Form.Group className={form}>
@@ -63,7 +60,7 @@ export function SelectLocation() {
           placeholder="Начните вводить город ..."
           selected={cityArr}
         >
-          {curCity && (
+          {cityArr.length > 0 && (
             <div
               onClick={() => dispatch(deleteCity())}
               className={iconClearInput}
@@ -79,17 +76,17 @@ export function SelectLocation() {
         <Form.Label>Пункт выдачи</Form.Label>
         <div
           className={typeheadWrapper}
-          onFocus={() => !curCity && toast.error('Выберите город')}
+          onFocus={() => cityArr.length === 0 && toast.error('Выберите город')}
         >
           <Typeahead
-            disabled={!curCity}
+            disabled={cityArr.length === 0}
             id="input-point"
             onChange={(s) => dispatch(changePoint(s))}
             options={fakeDataPoints}
             placeholder="Начните вводить пункт ..."
             selected={pointArr}
           >
-            {curPoint && (
+            {pointArr.length > 0 && (
               <div
                 onClick={() => dispatch(deletePoint())}
                 className={iconClearInput}

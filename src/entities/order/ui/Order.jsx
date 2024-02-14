@@ -10,15 +10,13 @@ export function Order() {
   const { cityArr, locationDataIsFilled, pointArr } =
     useSelector(getLocationData)
 
-  const locationValues = [cityArr[0], pointArr[0]]
-
   return (
     <div className={order}>
       <h5>Ваш заказ</h5>
       <div className={orderContainer}>
         {locationDataIsFilled && (
           <OrderDetail option="Пункт выдачи">
-            {locationValues.map((item, index, array) => (
+            {[...cityArr, ...pointArr].map((item, index, array) => (
               <Item item={item} index={index} array={array} key={item} />
             ))}
           </OrderDetail>
