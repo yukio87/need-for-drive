@@ -1,11 +1,4 @@
-import {
-  changeCity,
-  changePoint,
-  deleteCity,
-  deletePoint,
-  getCityArr,
-  getPointArr,
-} from '@features/select-location'
+import { deleteFullAddress, setFullAddress } from '@entities/order'
 import { colorBlack } from '@shared/consts/colors'
 import { Icon } from '@shared/ui/icon'
 import Form from 'react-bootstrap/Form'
@@ -13,6 +6,12 @@ import { Typeahead } from 'react-bootstrap-typeahead'
 import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 
+import {
+  deleteOrderPoint,
+  getAddressArr,
+  getCityArr,
+  setOrderPoint,
+} from '../model/slice.js'
 import {
   container,
   form,
@@ -47,7 +46,7 @@ const iconBasicStyles = {
 export function SelectLocation() {
   const dispatch = useDispatch()
   const cityArr = useSelector(getCityArr)
-  const pointArr = useSelector(getPointArr)
+  const addressArr = useSelector(getAddressArr)
 
   return (
     <div className={container}>
@@ -55,14 +54,19 @@ export function SelectLocation() {
         <Form.Label>Город</Form.Label>
         <Typeahead
           id="input-city"
-          onChange={(s) => dispatch(changeCity(s))}
+          onChange={(s) => {
+            dispatch(setOrderPoint({ pointName: 'city', value: s }))
+          }}
           options={fakeDataCities}
           placeholder="Начните вводить город ..."
           selected={cityArr}
         >
           {cityArr.length > 0 && (
             <div
-              onClick={() => dispatch(deleteCity())}
+              onClick={() => {
+                dispatch(deleteOrderPoint({ pointName: 'city' }))
+                dispatch(deleteFullAddress())
+              }}
               className={iconClearInput}
               aria-hidden={true}
             >
@@ -81,14 +85,20 @@ export function SelectLocation() {
           <Typeahead
             disabled={cityArr.length === 0}
             id="input-point"
-            onChange={(s) => dispatch(changePoint(s))}
+            onChange={(s) => {
+              dispatch(setOrderPoint({ pointName: 'address', value: s }))
+              dispatch(setFullAddress({ cityArr, addressArr: s }))
+            }}
             options={fakeDataPoints}
             placeholder="Начните вводить пункт ..."
-            selected={pointArr}
+            selected={addressArr}
           >
-            {pointArr.length > 0 && (
+            {addressArr.length > 0 && (
               <div
-                onClick={() => dispatch(deletePoint())}
+                onClick={() => {
+                  dispatch(deleteOrderPoint({ pointName: 'address' }))
+                  dispatch(deleteFullAddress())
+                }}
                 className={iconClearInput}
                 aria-hidden={true}
               >

@@ -1,26 +1,28 @@
+import { getLocationDataIsFilled } from '@features/select-location'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { getLocationData } from '../lib/selector'
-import { Item, OrderDetail } from './components'
-import { order, orderContainer } from './Order.module.scss'
+import { options } from '../consts/options'
+import { getOrder } from '../model/slice'
+import { OrderDetail } from './components'
+import { orderContainer, orderStyles } from './Order.module.scss'
 
 export function Order() {
   const navigate = useNavigate()
-  const { cityArr, locationDataIsFilled, pointArr } =
-    useSelector(getLocationData)
+  const order = useSelector(getOrder)
+  const locationDataIsFilled = useSelector(getLocationDataIsFilled)
 
   return (
-    <div className={order}>
+    <div className={orderStyles}>
       <h5>Ваш заказ</h5>
       <div className={orderContainer}>
-        {locationDataIsFilled && (
-          <OrderDetail option="Пункт выдачи">
-            {[...cityArr, ...pointArr].map((item, index, array) => (
-              <Item item={item} index={index} array={array} key={item} />
-            ))}
-          </OrderDetail>
-        )}
+        {Object.keys(order).map((orderPoint, i) => {
+          if (order[orderPoint])
+            return (
+              <OrderDetail option={options[i]}>{order[orderPoint]}</OrderDetail>
+            )
+          return null
+        })}
       </div>
       {/* <p className={price}>Цена: от 8 000 до 12 000 ₽</p> */}
       <button

@@ -2,35 +2,38 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   cityArr: [],
-  pointArr: [],
+  addressArr: [],
 }
 
 const locationSlice = createSlice({
   name: 'location',
   initialState,
   reducers: {
-    changeCity(state, action) {
-      state.cityArr = action.payload
-      state.pointArr = []
+    setOrderPoint(state, { payload }) {
+      if (payload.pointName === 'city') {
+        state.cityArr = payload.value
+        state.addressArr = []
+      }
+      if (payload.pointName === 'address') {
+        state.addressArr = payload.value
+      }
     },
-    changePoint(state, action) {
-      state.pointArr = action.payload
-    },
-    deleteCity(state) {
-      state.cityArr = []
-      state.pointArr = []
-    },
-    deletePoint(state) {
-      state.pointArr = []
+    deleteOrderPoint(state, { payload }) {
+      if (payload.pointName === 'city') {
+        state.cityArr = []
+        state.addressArr = []
+      }
+      if (payload.pointName === 'address') {
+        state.addressArr = []
+      }
     },
   },
 })
 
-export const { changeCity, changePoint, deleteCity, deletePoint } =
-  locationSlice.actions
+export const { deleteOrderPoint, setOrderPoint } = locationSlice.actions
 export const locationReducer = locationSlice.reducer
 
 export const getCityArr = (store) => store.location.cityArr
-export const getPointArr = (store) => store.location.pointArr
+export const getAddressArr = (store) => store.location.addressArr
 export const getLocationDataIsFilled = (store) =>
-  store.location.cityArr.length > 0 && store.location.pointArr.length > 0
+  store.location.cityArr.length > 0 && store.location.addressArr.length > 0

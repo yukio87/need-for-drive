@@ -61,5 +61,6 @@
 .values {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   color: var(--c-grey-dark);
 }

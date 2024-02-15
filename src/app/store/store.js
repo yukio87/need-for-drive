@@ -1,3 +1,4 @@
+import { orderReducer } from '@entities/order'
 import { langReducer } from '@features/change-lang'
 import { locationReducer } from '@features/select-location'
 import { configureStore } from '@reduxjs/toolkit'
@@ -9,6 +10,7 @@ const store = configureStore({
     app: appReducer,
     lang: langReducer,
     location: locationReducer,
+    order: orderReducer,
   },
 })
 
