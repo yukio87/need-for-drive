@@ -19,7 +19,9 @@ export function Order() {
         {Object.keys(order).map((orderPoint, i) => {
           if (order[orderPoint])
             return (
-              <OrderDetail option={options[i]}>{order[orderPoint]}</OrderDetail>
+              <OrderDetail option={options[i]} key={orderPoint}>
+                {order[orderPoint]}
+              </OrderDetail>
             )
           return null
         })}
