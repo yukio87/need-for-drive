@@ -1,7 +1,8 @@
 export const routesPaths = {
   pathHomePage: '/',
   pathLocationPage: '/location',
-  pathModelPage: '/model',
+  pathCarPage: '/car',
   pathExtraPage: '/extra',
   pathResultPage: '/result',
+  pathConfirmedPage: '/confirmed',
 }

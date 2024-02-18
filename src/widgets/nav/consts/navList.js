@@ -1,6 +1,6 @@
 import { routesPaths } from '@shared/consts/routesPaths'
 
-const { pathLocationPage, pathModelPage, pathExtraPage, pathResultPage } =
+const { pathLocationPage, pathCarPage, pathExtraPage, pathResultPage } =
   routesPaths
 
 export const navList = [
@@ -9,7 +9,7 @@ export const navList = [
     navName: 'Местоположение',
   },
   {
-    navPath: pathModelPage,
+    navPath: pathCarPage,
     navName: 'Модель',
   },
   {

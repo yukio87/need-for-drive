@@ -1,17 +1,17 @@
-import { deleteFullAddress, setFullAddress } from '@entities/order'
+import {
+  deleteFullAddressUi,
+  deleteOrderPointPost,
+  setFullAddressUi,
+  setOrderPointPost,
+} from '@entities/order'
 import { colorBlack } from '@shared/consts/colors'
 import { Icon } from '@shared/ui/icon'
+import { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import toast from 'react-hot-toast'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import {
-  deleteOrderPoint,
-  getAddressArr,
-  getCityArr,
-  setOrderPoint,
-} from '../model/slice.js'
 import {
   container,
   form,
@@ -45,8 +45,8 @@ const iconBasicStyles = {
 
 export function SelectLocation() {
   const dispatch = useDispatch()
-  const cityArr = useSelector(getCityArr)
-  const addressArr = useSelector(getAddressArr)
+  const [cityArr, setCityArr] = useState([])
+  const [addressArr, setAddressArr] = useState([])
 
   return (
     <div className={container}>
@@ -55,7 +55,10 @@ export function SelectLocation() {
         <Typeahead
           id="input-city"
           onChange={(s) => {
-            dispatch(setOrderPoint({ pointName: 'city', value: s }))
+            setCityArr(s)
+            setAddressArr([])
+            dispatch(setOrderPointPost({ pointName: 'city', value: s }))
+            if (s.length === 0) dispatch(deleteFullAddressUi())
           }}
           options={fakeDataCities}
           placeholder="Начните вводить город ..."
@@ -64,8 +67,10 @@ export function SelectLocation() {
           {cityArr.length > 0 && (
             <div
               onClick={() => {
-                dispatch(deleteOrderPoint({ pointName: 'city' }))
-                dispatch(deleteFullAddress())
+                setCityArr([])
+                setAddressArr([])
+                dispatch(deleteFullAddressUi())
+                dispatch(deleteOrderPointPost({ pointName: 'city' }))
               }}
               className={iconClearInput}
               aria-hidden={true}
@@ -86,8 +91,10 @@ export function SelectLocation() {
             disabled={cityArr.length === 0}
             id="input-point"
             onChange={(s) => {
-              dispatch(setOrderPoint({ pointName: 'address', value: s }))
-              dispatch(setFullAddress({ cityArr, addressArr: s }))
+              setAddressArr(s)
+              dispatch(setOrderPointPost({ pointName: 'address', value: s }))
+              dispatch(setFullAddressUi({ cityArr, addressArr: s }))
+              if (s.length === 0) dispatch(deleteFullAddressUi())
             }}
             options={fakeDataPoints}
             placeholder="Начните вводить пункт ..."
@@ -96,8 +103,9 @@ export function SelectLocation() {
             {addressArr.length > 0 && (
               <div
                 onClick={() => {
-                  dispatch(deleteOrderPoint({ pointName: 'address' }))
-                  dispatch(deleteFullAddress())
+                  setAddressArr([])
+                  dispatch(deleteFullAddressUi())
+                  dispatch(deleteOrderPointPost({ pointName: 'address' }))
                 }}
                 className={iconClearInput}
                 aria-hidden={true}

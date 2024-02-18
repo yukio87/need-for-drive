@@ -1,38 +1,44 @@
-import { getLocationDataIsFilled } from '@features/select-location'
+import { routesPaths } from '@shared/consts/routesPaths'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { options } from '../consts/options'
-import { getOrder } from '../model/slice'
+import { useNavigateTo } from '../hooks/useNavigateTo'
+import { usePageDataIsFilled } from '../hooks/usePageDataIsFilled'
+import { getOrderUi } from '../model/orderUiSlice'
 import { OrderDetail } from './components'
 import { orderContainer, orderStyles } from './Order.module.scss'
 
 export function Order() {
   const navigate = useNavigate()
-  const order = useSelector(getOrder)
-  const locationDataIsFilled = useSelector(getLocationDataIsFilled)
+  const orderUi = useSelector(getOrderUi)
+
+  const curPageDataIsFilled = usePageDataIsFilled()
+  const { nextPathName, buttonText } = useNavigateTo()
+
+  const { pathLocationPage } = routesPaths
 
   return (
     <div className={orderStyles}>
       <h5>Ваш заказ</h5>
       <div className={orderContainer}>
-        {Object.keys(order).map((orderPoint, i) => {
-          if (order[orderPoint])
-            return (
+        {Object.keys(orderUi).map(
+          (orderPoint, i) =>
+            orderUi[orderPoint] && (
               <OrderDetail option={options[i]} key={orderPoint}>
-                {order[orderPoint]}
+                {orderUi[orderPoint]}
               </OrderDetail>
-            )
-          return null
-        })}
+            ),
+        )}
       </div>
-      {/* <p className={price}>Цена: от 8 000 до 12 000 ₽</p> */}
       <button
-        disabled={!locationDataIsFilled}
+        disabled={
+          nextPathName === pathLocationPage ? false : !curPageDataIsFilled
+        }
         type="button"
-        onClick={() => navigate('/model')}
+        onClick={() => navigate(nextPathName)}
       >
-        Выбрать модель
+        {buttonText}
       </button>
     </div>
   )
