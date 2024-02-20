@@ -2,7 +2,7 @@ import { routesPaths } from '@shared/consts/routesPaths'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
-import { getOrderUi } from '../model/orderUiSlice.js'
+import { getOrderUi } from '../../model/orderUiSlice.js'
 
 export function usePageDataIsFilled() {
   const { pathname } = useLocation()

@@ -48,30 +48,47 @@ export function SelectLocation() {
   const [cityArr, setCityArr] = useState([])
   const [addressArr, setAddressArr] = useState([])
 
+  const handleOnChangeCity = (s) => {
+    setCityArr(s)
+    setAddressArr([])
+    dispatch(setOrderPointPost({ pointName: 'cityArr', value: s }))
+    if (s.length === 0) dispatch(deleteFullAddressUi())
+  }
+
+  const handleOnClickDeleteCity = () => {
+    setCityArr([])
+    setAddressArr([])
+    dispatch(deleteFullAddressUi())
+    dispatch(deleteOrderPointPost({ pointName: 'cityArr' }))
+  }
+
+  const handleOnChangeAddress = (s) => {
+    setAddressArr(s)
+    dispatch(setOrderPointPost({ pointName: 'addressArr', value: s }))
+    dispatch(setFullAddressUi({ cityArr, addressArr: s }))
+    if (s.length === 0) dispatch(deleteFullAddressUi())
+  }
+
+  const handleOnClickDeleteAddress = () => {
+    setAddressArr([])
+    dispatch(deleteFullAddressUi())
+    dispatch(deleteOrderPointPost({ pointName: 'addressArr' }))
+  }
+
   return (
     <div className={container}>
       <Form.Group className={form}>
         <Form.Label>Город</Form.Label>
         <Typeahead
           id="input-city"
-          onChange={(s) => {
-            setCityArr(s)
-            setAddressArr([])
-            dispatch(setOrderPointPost({ pointName: 'city', value: s }))
-            if (s.length === 0) dispatch(deleteFullAddressUi())
-          }}
+          onChange={handleOnChangeCity}
           options={fakeDataCities}
           placeholder="Начните вводить город ..."
           selected={cityArr}
         >
           {cityArr.length > 0 && (
             <div
-              onClick={() => {
-                setCityArr([])
-                setAddressArr([])
-                dispatch(deleteFullAddressUi())
-                dispatch(deleteOrderPointPost({ pointName: 'city' }))
-              }}
+              onClick={handleOnClickDeleteCity}
               className={iconClearInput}
               aria-hidden={true}
             >
@@ -90,23 +107,14 @@ export function SelectLocation() {
           <Typeahead
             disabled={cityArr.length === 0}
             id="input-point"
-            onChange={(s) => {
-              setAddressArr(s)
-              dispatch(setOrderPointPost({ pointName: 'address', value: s }))
-              dispatch(setFullAddressUi({ cityArr, addressArr: s }))
-              if (s.length === 0) dispatch(deleteFullAddressUi())
-            }}
+            onChange={handleOnChangeAddress}
             options={fakeDataPoints}
             placeholder="Начните вводить пункт ..."
             selected={addressArr}
           >
             {addressArr.length > 0 && (
               <div
-                onClick={() => {
-                  setAddressArr([])
-                  dispatch(deleteFullAddressUi())
-                  dispatch(deleteOrderPointPost({ pointName: 'address' }))
-                }}
+                onClick={handleOnClickDeleteAddress}
                 className={iconClearInput}
                 aria-hidden={true}
               >

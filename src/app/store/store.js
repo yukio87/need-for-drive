@@ -2,7 +2,7 @@ import { orderPostReducer, orderUiReducer } from '@entities/order'
 import { langReducer } from '@features/change-lang'
 import { configureStore } from '@reduxjs/toolkit'
 
-import appReducer from './appSlice.js'
+import { appReducer } from './appSlice.js'
 
 const store = configureStore({
   reducer: {

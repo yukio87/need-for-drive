@@ -19,12 +19,18 @@ const orderPostSlice = createSlice({
   initialState,
   reducers: {
     setOrderPointPost(state, { payload }) {
-      if (payload.pointName === 'city') state.cityArr = payload.value
-      if (payload.pointName === 'address') state.addressArr = payload.value
+      const { pointName, value } = payload
+      return {
+        ...state,
+        [pointName]: value,
+      }
     },
     deleteOrderPointPost(state, { payload }) {
-      if (payload.pointName === 'city') state.cityArr = []
-      if (payload.pointName === 'address') state.addressArr = []
+      const { pointName, value } = payload
+      return {
+        ...state,
+        [pointName]: value,
+      }
     },
     setCarPost(state, { payload }) {
       state.car = payload
