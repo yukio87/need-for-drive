@@ -15,6 +15,20 @@
   }
 }
 
+%modal-open {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  padding-left: 128px;
+}
+
 .modal {
   button {
     padding: 0;
@@ -58,17 +72,22 @@
 }
 
 .modal-open {
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  left: 0;
+  @extend %modal-open;
 
-  display: flex;
-  align-items: center;
+  background: rgba(17 21 24 / 100%) 100vw;
 
-  width: 100%;
-  height: 100%;
-  padding-left: 128px;
+  @media (max-width: 1439px) {
+    padding-left: 97px;
+  }
+
+  @media (max-width: 767px) {
+    align-items: flex-start;
+    padding: 80px 23px 28px;
+  }
+}
+
+.modal-open-home {
+  @extend %modal-open;
 
   @media (min-width: 1440px) {
     background: linear-gradient(

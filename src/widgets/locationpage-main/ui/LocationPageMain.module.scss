@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  margin-bottom: 16px;
+  line-height: 16px;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}

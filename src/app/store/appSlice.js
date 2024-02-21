@@ -8,14 +8,13 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    updateDevice(state, action) {
-      state.device = action.payload
+    updateDevice(state, { payload }) {
+      state.device = payload
     },
   },
 })
 
-export default appSlice.reducer
-
 export const { updateDevice } = appSlice.actions
+export const appReducer = appSlice.reducer
 
 export const getDevice = (store) => store.app.device

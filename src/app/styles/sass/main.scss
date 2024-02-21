@@ -1,6 +1,7 @@
 @import 'normalize.css';
 @import './base/reset';
 @import './abstracts/mixins';
+@import 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
 
 :root {
   --c-black: rgba(18 18 18);

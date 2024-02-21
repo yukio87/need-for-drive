@@ -1,1 +1,1 @@
-export { ChangeLocation } from './ui/ChangeLocation.jsx'
+export { ChangeGeolocation } from './ui/ChangeGeolocation.jsx'

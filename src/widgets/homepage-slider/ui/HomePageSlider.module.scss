@@ -1,12 +1,12 @@
 @import '../../../app/styles/sass/main';
 
 .slider {
-  width: 50%;
   position: relative;
+  width: 50%;
 
   :global(.carousel-control-prev) {
-    width: 64px;
     z-index: 50;
+    width: 64px;
 
     @media (max-width: 1439px) {
       width: 32px;
@@ -14,8 +14,8 @@
   }
 
   :global(.carousel-control-next) {
-    width: 64px;
     z-index: 50;
+    width: 64px;
 
     @media (max-width: 1439px) {
       width: 32px;
@@ -47,12 +47,16 @@
 
   :global(.carousel-item::before) {
     content: '';
+
+    position: absolute;
     z-index: 10;
+
+    display: block;
+
     width: 100%;
     height: 100%;
-    display: block;
-    position: absolute;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+
+    background: linear-gradient(to bottom, rgb(0 0 0 / 0%), rgb(0 0 0 / 100%));
   }
 
   @media (max-width: 1439px) {
@@ -93,9 +97,9 @@
 }
 
 .content {
-  padding: 237px 96px 0;
   position: relative;
   z-index: 50;
+  padding: 237px 96px 0;
 
   h2 {
     margin-bottom: 8px;
