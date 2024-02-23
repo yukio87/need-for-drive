@@ -1,11 +1,21 @@
 import { AppLayout } from '@pages/app-layout'
 import { CarPage } from '@pages/car-page'
+import { ConfirmedPage } from '@pages/confirmed-page'
+import { ExtraPage } from '@pages/extra-page'
 import { HomePage } from '@pages/home-page'
 import { LocationPage } from '@pages/location-page'
+import { ResultPage } from '@pages/result-page'
 import { routesPaths } from '@shared/consts/routesPaths'
 import { Error } from '@shared/ui/errors'
 
-const { pathHomePage, pathLocationPage, pathCarPage } = routesPaths
+const {
+  pathHomePage,
+  pathLocationPage,
+  pathCarPage,
+  pathExtraPage,
+  pathResultPage,
+  pathConfirmedPage,
+} = routesPaths
 
 const routes = [
   {
@@ -25,6 +35,18 @@ const routes = [
       {
         path: pathCarPage,
         element: <CarPage />,
+      },
+      {
+        path: pathExtraPage,
+        element: <ExtraPage />,
+      },
+      {
+        path: pathResultPage,
+        element: <ResultPage />,
+      },
+      {
+        path: pathConfirmedPage,
+        element: <ConfirmedPage />,
       },
     ],
   },

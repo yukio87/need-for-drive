@@ -1,17 +1,25 @@
 import {
   deleteFullAddressUi,
   deleteOrderPointPost,
+  resetCarPageStatePost,
+  resetCarPageStateUi,
+  resetExtraPageStatePost,
+  resetExtraPageStateUi,
   setFullAddressUi,
   setOrderPointPost,
 } from '@entities/order'
 import { colorBlack } from '@shared/consts/colors'
 import { Icon } from '@shared/ui/icon'
-import { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import toast from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
+import {
+  deleteLocationPoint,
+  getLocation,
+  setLocationPoint,
+} from '../model/slice'
 import {
   container,
   form,
@@ -45,34 +53,44 @@ const iconBasicStyles = {
 
 export function SelectLocation() {
   const dispatch = useDispatch()
-  const [cityArr, setCityArr] = useState([])
-  const [addressArr, setAddressArr] = useState([])
+  const { cityArr, addressArr } = useSelector(getLocation)
+
+  const resetStatesNextPages = () => {
+    dispatch(resetCarPageStatePost())
+    dispatch(resetCarPageStateUi())
+    dispatch(resetExtraPageStatePost())
+    dispatch(resetExtraPageStateUi())
+  }
 
   const handleOnChangeCity = (s) => {
-    setCityArr(s)
-    setAddressArr([])
+    dispatch(setLocationPoint({ pointName: 'cityArr', value: s }))
+    dispatch(deleteLocationPoint({ pointName: 'addressArr' }))
     dispatch(setOrderPointPost({ pointName: 'cityArr', value: s }))
     if (s.length === 0) dispatch(deleteFullAddressUi())
+    resetStatesNextPages()
   }
 
   const handleOnClickDeleteCity = () => {
-    setCityArr([])
-    setAddressArr([])
+    dispatch(deleteLocationPoint({ pointName: 'cityArr' }))
+    dispatch(deleteLocationPoint({ pointName: 'addressArr' }))
     dispatch(deleteFullAddressUi())
     dispatch(deleteOrderPointPost({ pointName: 'cityArr' }))
+    resetStatesNextPages()
   }
 
   const handleOnChangeAddress = (s) => {
-    setAddressArr(s)
+    dispatch(setLocationPoint({ pointName: 'addressArr', value: s }))
     dispatch(setOrderPointPost({ pointName: 'addressArr', value: s }))
     dispatch(setFullAddressUi({ cityArr, addressArr: s }))
     if (s.length === 0) dispatch(deleteFullAddressUi())
+    resetStatesNextPages()
   }
 
   const handleOnClickDeleteAddress = () => {
-    setAddressArr([])
+    dispatch(deleteLocationPoint({ pointName: 'addressArr' }))
     dispatch(deleteFullAddressUi())
     dispatch(deleteOrderPointPost({ pointName: 'addressArr' }))
+    resetStatesNextPages()
   }
 
   return (

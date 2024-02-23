@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { setCarPost, setCarUi } from '@entities/order'
-import { useDispatch } from 'react-redux'
+import { getOrderUi, setCarPost, setCarUi } from '@entities/order'
+import { useDispatch, useSelector } from 'react-redux'
 
 export function SelectCar() {
   const dispatch = useDispatch()
+  const { car } = useSelector(getOrderUi)
 
   return (
     <>
@@ -15,8 +16,9 @@ export function SelectCar() {
           }}
           type="radio"
           id="car#1"
-          name="drone"
+          name="car"
           value="car#1"
+          checked={car === 'car#1'}
         />
         <label htmlFor="car#1">Car#1</label>
       </div>
@@ -28,8 +30,9 @@ export function SelectCar() {
           }}
           type="radio"
           id="car#2"
-          name="drone"
+          name="car"
           value="car#2"
+          checked={car === 'car#2'}
         />
         <label htmlFor="car#2">Car#2</label>
       </div>
