@@ -1,13 +1,15 @@
 import { updateDevice } from '@app/store/appSlice'
 import { deviceDetection } from '@shared/lib/device'
+import { getDataIsFilledForPages } from '@shared/lib/selectors/getDataIsFilledForPages'
 import { useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { RouterProvider } from 'react-router-dom'
 
-import routes from './routes'
+import { appRouter } from './appRouter'
 
 function App() {
   const dispatch = useDispatch()
+  const dataIsFilledForPages = useSelector(getDataIsFilledForPages)
 
   const dispatchDevice = useCallback(() => {
     dispatch(updateDevice(deviceDetection()))
@@ -20,9 +22,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const router = createBrowserRouter(routes)
-
-  return <RouterProvider router={router} />
+  return <RouterProvider router={appRouter(dataIsFilledForPages)} />
 }
 
 export default App

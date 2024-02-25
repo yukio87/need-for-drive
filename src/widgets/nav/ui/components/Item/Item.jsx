@@ -1,9 +1,9 @@
 import { colorGreyDark } from '@shared/consts/colors'
+import { getDataIsFilledForPages } from '@shared/lib/selectors/getDataIsFilledForPages'
 import { Icon } from '@shared/ui/icon'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-import { getDataIsFilledForPages } from '../../../lib/selector'
 import { filledData, filledPrevData, unfilledData } from './Item.module.scss'
 
 const iconBasicStyles = {
