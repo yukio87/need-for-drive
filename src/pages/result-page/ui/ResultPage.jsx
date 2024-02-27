@@ -1,19 +1,12 @@
 import { Order } from '@entities/order'
 import { Content } from '@shared/ui/content'
-import { Header } from '@widgets/header'
-import { Nav } from '@widgets/nav'
+import { Page } from '@shared/ui/page'
 import { ResultPageMain } from '@widgets/resultpage-main'
-
-import { header, resultPage } from './ResultPage.module.scss'
 
 export function ResultPage() {
   return (
-    <div className={resultPage}>
-      <div className={header}>
-        <Header />
-      </div>
-      <Nav />
+    <Page>
       <Content main={<ResultPageMain />} aside={<Order />} />
-    </div>
+    </Page>
   )
 }
