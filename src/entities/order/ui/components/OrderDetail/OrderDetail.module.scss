@@ -8,14 +8,16 @@
   line-height: 16px;
 
   @media (max-width: 1203px) {
+    margin-bottom: 10px;
+    align-items: flex-start;
     flex-direction: column;
     gap: 0;
   }
 
   @media (max-width: 767px) {
+    align-items: flex-end;
     flex-direction: row;
     gap: 3px;
-    margin-bottom: 10px;
   }
 }
 
@@ -63,4 +65,12 @@
   flex-direction: column;
   align-items: flex-end;
   color: var(--c-grey-dark);
+
+  @media (max-width: 1203px) {
+    align-items: flex-start;
+  }
+
+  @media (max-width: 767px) {
+    align-items: flex-end;
+  }
 }

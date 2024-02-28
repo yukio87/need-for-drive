@@ -1,0 +1,28 @@
+%link {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.41px;
+  text-decoration: none;
+}
+
+:global(a.active) {
+  color: var(--c-green);
+}
+
+.filled-data {
+  @extend %link;
+
+  pointer-events: auto;
+  color: var(--c-black);
+}
+
+.unfilled-data {
+  @extend %link;
+
+  pointer-events: none;
+  color: var(--c-grey-dark);
+}
+
+.filled-prev-data {
+  pointer-events: auto;
+}

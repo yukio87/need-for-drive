@@ -1,12 +1,12 @@
 import { Order } from '@entities/order'
 import { Content } from '@shared/ui/content'
 import { Page } from '@shared/ui/page'
-import { LocationPageMain } from '@widgets/locationpage-main'
+import { ExtraPageMain } from '@widgets/extrapage-main'
 
-export function LocationPage() {
+export function ExtraPage() {
   return (
     <Page>
-      <Content main={<LocationPageMain />} aside={<Order />} />
+      <Content main={<ExtraPageMain />} aside={<Order />} />
     </Page>
   )
 }

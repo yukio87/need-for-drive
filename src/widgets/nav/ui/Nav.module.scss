@@ -14,18 +14,6 @@
   margin: 0 auto;
   padding: 8px 64px;
 
-  a {
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 16.41px;
-    color: var(--c-grey-dark);
-    text-decoration: none;
-  }
-
-  :global(a.active) {
-    color: var(--c-green);
-  }
-
   @media (max-width: 1439px) {
     width: 100%;
     margin: 0;
