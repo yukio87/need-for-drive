@@ -7,7 +7,7 @@ export function OrderDetail({ children, option }) {
       <span className={opt}>{option}</span>
       <span className={dots} />
       <div className={values}>
-        {children.split(', ').map((item, index, array) => (
+        {children.split('/').map((item, index, array) => (
           <Item item={item} index={index} array={array} key={item} />
         ))}
       </div>

@@ -19,3 +19,12 @@
 .leaflet-container {
   height: 100%;
 }
+
+.loader {
+  max-width: 736px;
+  height: 100%;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}

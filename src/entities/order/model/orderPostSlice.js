@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  cityArr: [], // cityId
-  addressArr: [], // pointId
+  cityId: {},
+  pointId: {},
   car: '', // carId
   color: '',
   dateFrom: '',
@@ -22,14 +22,14 @@ const orderPostSlice = createSlice({
       const { pointName, value } = payload
       return {
         ...state,
-        [pointName]: value,
+        [pointName]: value.length === 0 ? {} : value[0],
       }
     },
     deleteOrderPointPost(state, { payload }) {
       const { pointName } = payload
       return {
         ...state,
-        [pointName]: [],
+        [pointName]: {},
       }
     },
     setCarPost(state, { payload }) {

@@ -1,3 +1,4 @@
+import { mapReducer } from '@entities/map'
 import { orderPostReducer, orderUiReducer } from '@entities/order'
 import { langReducer } from '@features/change-lang'
 import { locationReducer } from '@features/select-location'
@@ -12,6 +13,7 @@ const store = configureStore({
     location: locationReducer,
     orderUi: orderUiReducer,
     orderPost: orderPostReducer,
+    map: mapReducer,
   },
 })
 

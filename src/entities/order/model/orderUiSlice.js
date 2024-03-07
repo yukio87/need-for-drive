@@ -17,7 +17,7 @@ const orderUiSlice = createSlice({
   initialState,
   reducers: {
     setFullAddressUi(state, { payload }) {
-      state.fullAddress = `${payload.cityArr[0]}, ${payload.addressArr[0]}`
+      state.fullAddress = `${payload.cityArr[0].name}/${payload.addressArr[0].address}`
     },
     deleteFullAddressUi(state) {
       state.fullAddress = ''
