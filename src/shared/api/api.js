@@ -1,9 +1,5 @@
+import { baseURL } from '@shared/consts/urls'
 import axios from 'axios'
-
-const baseURL = 'https://frontend-study.simbirsoft.dev/api'
-
-export const urlCity = '/db/city'
-export const urlAddress = '/db/point'
 
 export async function api(url, options) {
   try {

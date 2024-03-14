@@ -14,54 +14,53 @@ const initialState = {
   price: '',
 }
 
+const initialStateExtraPage = {
+  color: '',
+  dateFrom: '',
+  dateTo: '',
+  rateId: '',
+  isFullTank: '',
+  isNeedChildChair: '',
+  isRightWheel: '',
+}
+
 const orderPostSlice = createSlice({
   name: 'orderPost',
   initialState,
   reducers: {
     setOrderPointPost(state, { payload }) {
       const { pointName, value } = payload
-      return {
-        ...state,
-        [pointName]: value.length === 0 ? {} : value[0],
-      }
+      return pointName === 'cityId'
+        ? {
+            ...initialState,
+            cityId: value.length === 0 ? {} : value[0],
+            pointId: {},
+          }
+        : {
+            ...initialState,
+            cityId: state.cityId,
+            pointId: value.length === 0 ? {} : value[0],
+          }
     },
     deleteOrderPointPost(state, { payload }) {
       const { pointName } = payload
-      return {
-        ...state,
-        [pointName]: {},
-      }
+      return pointName === 'cityId'
+        ? { ...initialState }
+        : { ...initialState, cityId: state.cityId }
     },
     setCarPost(state, { payload }) {
-      state.car = payload
-    },
-    resetCarPageStatePost(state) {
-      state.car = ''
-    },
-    setColorPost(state, { payload }) {
-      state.color = payload
-    },
-    resetExtraPageStatePost(state) {
-      state.color = ''
-      state.dateFrom = ''
-      state.dateTo = ''
-      state.rateId = ''
-      state.isFullTank = ''
-      state.isNeedChildChair = ''
-      state.isRightWheel = ''
+      return {
+        cityId: state.cityId,
+        pointId: state.pointId,
+        car: payload,
+        ...initialStateExtraPage,
+      }
     },
   },
 })
 
-export const {
-  setOrderPointPost,
-  deleteOrderPointPost,
-  setCarPost,
-  deleteCarPost,
-  resetCarPageStatePost,
-  setColorPost,
-  resetExtraPageStatePost,
-} = orderPostSlice.actions
+export const { setOrderPointPost, deleteOrderPointPost, setCarPost } =
+  orderPostSlice.actions
 export const orderPostReducer = orderPostSlice.reducer
 
 export const getOrderPost = (store) => store.orderPost

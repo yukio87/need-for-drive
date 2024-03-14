@@ -2,15 +2,14 @@ import { Map, resetMapState, setMapState } from '@entities/map'
 import {
   deleteFullAddressUi,
   deleteOrderPointPost,
-  resetCarPageStatePost,
-  resetCarPageStateUi,
-  resetExtraPageStatePost,
-  resetExtraPageStateUi,
   setFullAddressUi,
   setOrderPointPost,
 } from '@entities/order'
+import { api } from '@shared/api/api'
+import { urlAddress, urlCity } from '@shared/consts/urls'
 import { Icon } from '@shared/ui/icon'
 import { Loader } from '@shared/ui/loaders'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo } from 'react'
 import Form from 'react-bootstrap/Form'
 import { Typeahead } from 'react-bootstrap-typeahead'
@@ -18,8 +17,6 @@ import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { iconBasicStyles } from '../consts/iconBasicStyles'
-import { useAddresses } from '../lib/hooks/useAddresses'
-import { useCities } from '../lib/hooks/useCities'
 import {
   deleteLocationPoint,
   getLocation,
@@ -40,15 +37,26 @@ export function SelectLocation() {
   const dispatch = useDispatch()
   const { cityArr, addressArr, addressesWithCoords } = useSelector(getLocation)
 
-  const { isLoadingCities, dataCities, isErrorCities, errorCities } =
-    useCities()
+  const {
+    isLoading: isLoadingCities,
+    data: dataCities,
+    isError: isErrorCities,
+    error: errorCities,
+  } = useQuery({
+    queryKey: ['cities'],
+    queryFn: () => api(urlCity, { method: 'get' }),
+  })
 
   const {
-    isLoadingAddresses,
-    dataAddresses,
-    isErrorAddresses,
-    errorAddresses,
-  } = useAddresses(cityArr[0]?.id, cityArr.length > 0)
+    isLoading: isLoadingAddresses,
+    data: dataAddresses,
+    isError: isErrorAddresses,
+    error: errorAddresses,
+  } = useQuery({
+    queryKey: ['addresses', cityArr[0]?.id],
+    queryFn: () => api(`${urlAddress}/${cityArr[0]?.id}`, { method: 'get' }),
+    enabled: cityArr.length > 0,
+  })
 
   useEffect(() => {
     if (dataAddresses?.data.data)
@@ -70,20 +78,12 @@ export function SelectLocation() {
     [dataAddresses?.data.data],
   )
 
-  const resetStatesNextPages = () => {
-    dispatch(resetCarPageStatePost())
-    dispatch(resetCarPageStateUi())
-    dispatch(resetExtraPageStatePost())
-    dispatch(resetExtraPageStateUi())
-  }
-
   const handleOnChangeCity = (s) => {
     dispatch(setLocationPoint({ pointName: 'cityArr', value: s }))
     dispatch(deleteLocationPoint({ pointName: 'addressArr' }))
     dispatch(setOrderPointPost({ pointName: 'cityId', value: s }))
     if (s.length === 0) dispatch(deleteFullAddressUi())
     dispatch(setMapState())
-    resetStatesNextPages()
   }
 
   const handleOnClickDeleteCity = () => {
@@ -92,7 +92,6 @@ export function SelectLocation() {
     dispatch(deleteFullAddressUi())
     dispatch(deleteOrderPointPost({ pointName: 'cityId' }))
     dispatch(resetMapState())
-    resetStatesNextPages()
   }
 
   const handleOnChangeAddress = (s) => {
@@ -100,14 +99,12 @@ export function SelectLocation() {
     dispatch(setOrderPointPost({ pointName: 'pointId', value: s }))
     if (s.length > 0) dispatch(setFullAddressUi({ cityArr, addressArr: s }))
     if (s.length === 0) dispatch(deleteFullAddressUi())
-    resetStatesNextPages()
   }
 
   const handleOnClickDeleteAddress = () => {
     dispatch(deleteLocationPoint({ pointName: 'addressArr' }))
     dispatch(deleteFullAddressUi())
     dispatch(deleteOrderPointPost({ pointName: 'pointId' }))
-    resetStatesNextPages()
   }
 
   return (
