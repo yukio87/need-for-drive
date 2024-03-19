@@ -14,16 +14,6 @@ const initialState = {
   price: '',
 }
 
-const initialStateExtraPage = {
-  color: '',
-  dateFrom: '',
-  dateTo: '',
-  rateId: '',
-  isFullTank: '',
-  isNeedChildChair: '',
-  isRightWheel: '',
-}
-
 const orderPostSlice = createSlice({
   name: 'orderPost',
   initialState,
@@ -32,14 +22,13 @@ const orderPostSlice = createSlice({
       const { pointName, value } = payload
       return pointName === 'cityId'
         ? {
-            ...initialState,
+            ...state,
             cityId: value.length === 0 ? {} : value[0],
             pointId: {},
           }
         : {
-            ...initialState,
-            cityId: state.cityId,
-            pointId: value.length === 0 ? {} : value[0],
+            ...state,
+            [pointName]: value.length === 0 ? {} : value[0],
           }
     },
     deleteOrderPointPost(state, { payload }) {
@@ -50,10 +39,10 @@ const orderPostSlice = createSlice({
     },
     setCarPost(state, { payload }) {
       return {
+        ...initialState,
         cityId: state.cityId,
         pointId: state.pointId,
         car: payload,
-        ...initialStateExtraPage,
       }
     },
   },

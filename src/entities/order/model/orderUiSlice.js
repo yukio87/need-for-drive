@@ -12,15 +12,6 @@ const initialState = {
   price: '',
 }
 
-const initialStateExtraPage = {
-  color: '',
-  rentalDuration: '',
-  rate: '',
-  isFullTank: '',
-  isNeedChildChair: '',
-  isRightWheel: '',
-}
-
 const orderUiSlice = createSlice({
   name: 'orderUi',
   initialState,
@@ -36,9 +27,9 @@ const orderUiSlice = createSlice({
     },
     setCarUi(state, { payload }) {
       return {
+        ...initialState,
         fullAddress: state.fullAddress,
         car: payload,
-        ...initialStateExtraPage,
       }
     },
   },
