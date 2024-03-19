@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  cityArr: [], // cityId
-  addressArr: [], // pointId
+  cityId: {},
+  pointId: {},
   car: '', // carId
   color: '',
   dateFrom: '',
@@ -20,48 +20,36 @@ const orderPostSlice = createSlice({
   reducers: {
     setOrderPointPost(state, { payload }) {
       const { pointName, value } = payload
-      return {
-        ...state,
-        [pointName]: value,
-      }
+      return pointName === 'cityId'
+        ? {
+            ...state,
+            cityId: value.length === 0 ? {} : value[0],
+            pointId: {},
+          }
+        : {
+            ...state,
+            [pointName]: value.length === 0 ? {} : value[0],
+          }
     },
     deleteOrderPointPost(state, { payload }) {
       const { pointName } = payload
-      return {
-        ...state,
-        [pointName]: [],
-      }
+      return pointName === 'cityId'
+        ? { ...initialState }
+        : { ...initialState, cityId: state.cityId }
     },
     setCarPost(state, { payload }) {
-      state.car = payload
-    },
-    resetCarPageStatePost(state) {
-      state.car = ''
-    },
-    setColorPost(state, { payload }) {
-      state.color = payload
-    },
-    resetExtraPageStatePost(state) {
-      state.color = ''
-      state.dateFrom = ''
-      state.dateTo = ''
-      state.rateId = ''
-      state.isFullTank = ''
-      state.isNeedChildChair = ''
-      state.isRightWheel = ''
+      return {
+        ...initialState,
+        cityId: state.cityId,
+        pointId: state.pointId,
+        car: payload,
+      }
     },
   },
 })
 
-export const {
-  setOrderPointPost,
-  deleteOrderPointPost,
-  setCarPost,
-  deleteCarPost,
-  resetCarPageStatePost,
-  setColorPost,
-  resetExtraPageStatePost,
-} = orderPostSlice.actions
+export const { setOrderPointPost, deleteOrderPointPost, setCarPost } =
+  orderPostSlice.actions
 export const orderPostReducer = orderPostSlice.reducer
 
 export const getOrderPost = (store) => store.orderPost

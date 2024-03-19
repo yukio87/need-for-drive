@@ -32,7 +32,9 @@ export default function buildLoaders({ mode }) {
     loader: 'css-loader',
     options: {
       modules: {
-        localIdentName: isDev ? '[path][name]__[local]' : 'hash:base64:8',
+        localIdentName: isDev
+          ? '[path][name]__[local]'
+          : '[path][name]__[local]--[hash:base64:5]',
         namedExport: true,
       },
     },

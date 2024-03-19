@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { cityCoords } from '../consts/cityCoords.js'
+
 const initialState = {
   cityArr: [],
   addressArr: [],
+  addressesWithCoords: [],
 }
 
 const locationSlice = createSlice({
@@ -23,10 +26,20 @@ const locationSlice = createSlice({
         [pointName]: [],
       }
     },
+    setAddressesWithCoords(state, { payload }) {
+      const { curCity, curAddresses } = payload
+      state.addressesWithCoords = curAddresses.map((address, i) => {
+        return {
+          ...address,
+          position: cityCoords[curCity][i],
+        }
+      })
+    },
   },
 })
 
-export const { setLocationPoint, deleteLocationPoint } = locationSlice.actions
+export const { setLocationPoint, deleteLocationPoint, setAddressesWithCoords } =
+  locationSlice.actions
 export const locationReducer = locationSlice.reducer
 
 export const getLocation = (store) => store.location

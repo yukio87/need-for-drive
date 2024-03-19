@@ -2,10 +2,7 @@ export {
   deleteOrderPointPost,
   getOrderPost,
   orderPostReducer,
-  resetCarPageStatePost,
-  resetExtraPageStatePost,
   setCarPost,
-  setColorPost,
   setOrderPointPost,
 } from './model/orderPostSlice.js'
 export {
@@ -15,10 +12,7 @@ export {
   getLocationDataIsFilled,
   getOrderUi,
   orderUiReducer,
-  resetCarPageStateUi,
-  resetExtraPageStateUi,
   setCarUi,
-  setColorUi,
   setFullAddressUi,
 } from './model/orderUiSlice.js'
 export { Order } from './ui/Order.jsx'

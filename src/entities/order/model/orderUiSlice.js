@@ -17,40 +17,26 @@ const orderUiSlice = createSlice({
   initialState,
   reducers: {
     setFullAddressUi(state, { payload }) {
-      state.fullAddress = `${payload.cityArr[0]}, ${payload.addressArr[0]}`
+      return {
+        ...initialState,
+        fullAddress: `${payload.cityArr[0].name}/${payload.addressArr[0].address}`,
+      }
     },
-    deleteFullAddressUi(state) {
-      state.fullAddress = ''
+    deleteFullAddressUi() {
+      return initialState
     },
     setCarUi(state, { payload }) {
-      state.car = payload
-    },
-    resetCarPageStateUi(state) {
-      state.car = ''
-    },
-    setColorUi(state, { payload }) {
-      state.color = payload
-    },
-    resetExtraPageStateUi(state) {
-      state.color = ''
-      state.rentalDuration = ''
-      state.rate = ''
-      state.isFullTank = ''
-      state.isNeedChildChair = ''
-      state.isRightWheel = ''
+      return {
+        ...initialState,
+        fullAddress: state.fullAddress,
+        car: payload,
+      }
     },
   },
 })
 
-export const {
-  setFullAddressUi,
-  deleteFullAddressUi,
-  setCarUi,
-  deleteCarUi,
-  resetCarPageStateUi,
-  setColorUi,
-  resetExtraPageStateUi,
-} = orderUiSlice.actions
+export const { setFullAddressUi, deleteFullAddressUi, setCarUi } =
+  orderUiSlice.actions
 export const orderUiReducer = orderUiSlice.reducer
 
 export const getOrderUi = (store) => store.orderUi
