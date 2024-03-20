@@ -1,16 +1,10 @@
-import { colorGreyDark } from '@shared/consts/colors'
 import { getDataIsFilledForPages } from '@shared/lib/selectors/getDataIsFilledForPages'
 import { Icon } from '@shared/ui/icon'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
+import { iconBasicStyles } from '../../../consts/iconBasicStyles'
 import { filledData, filledPrevData, unfilledData } from './Item.module.scss'
-
-const iconBasicStyles = {
-  width: '6px',
-  height: '8px',
-  color: colorGreyDark,
-}
 
 export function Item({ navPath, navName, index, array }) {
   const dataIsFilledForPages = useSelector(getDataIsFilledForPages)
@@ -23,6 +17,7 @@ export function Item({ navPath, navName, index, array }) {
     <>
       <NavLink
         to={navPath}
+        style={index === 0 ? { pointerEvents: 'auto' } : {}}
         className={`${dataCurTabIsFilled ? filledData : unfilledData} ${
           dataPrevTabIsFilled && filledPrevData
         }`}

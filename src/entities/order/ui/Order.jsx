@@ -7,7 +7,7 @@ import { useNavigateTo } from '../lib/hooks/useNavigateTo'
 import { usePageDataIsFilled } from '../lib/hooks/usePageDataIsFilled'
 import { getOrderUi } from '../model/orderUiSlice'
 import { OrderDetail } from './components'
-import { orderContainer, orderStyles } from './Order.module.scss'
+import { orderContainer, orderStyles, priceStyles } from './Order.module.scss'
 
 export function Order() {
   const navigate = useNavigate()
@@ -24,13 +24,15 @@ export function Order() {
       <div className={orderContainer}>
         {Object.keys(orderUi).map(
           (orderPoint, i) =>
-            orderUi[orderPoint] && (
+            orderUi[orderPoint] &&
+            orderPoint !== 'price' && (
               <OrderDetail option={options[i]} key={orderPoint}>
                 {orderUi[orderPoint]}
               </OrderDetail>
             ),
         )}
       </div>
+      {orderUi.price && <p className={priceStyles}>{orderUi.price}</p>}
       <button
         disabled={
           nextPathName === pathLocationPage ? false : !curPageDataIsFilled

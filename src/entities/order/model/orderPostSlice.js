@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   cityId: {},
   pointId: {},
-  car: '', // carId
+  carId: {},
   color: '',
   dateFrom: '',
   dateTo: '',
@@ -42,14 +42,22 @@ const orderPostSlice = createSlice({
         ...initialState,
         cityId: state.cityId,
         pointId: state.pointId,
-        car: payload,
+        carId: payload,
       }
+    },
+    // temp
+    setColorPost(state, { payload }) {
+      state.color = payload
     },
   },
 })
 
-export const { setOrderPointPost, deleteOrderPointPost, setCarPost } =
-  orderPostSlice.actions
+export const {
+  setOrderPointPost,
+  deleteOrderPointPost,
+  setCarPost,
+  setColorPost,
+} = orderPostSlice.actions
 export const orderPostReducer = orderPostSlice.reducer
 
 export const getOrderPost = (store) => store.orderPost
