@@ -16,6 +16,5 @@ export {
   setCarUi,
   setColorUi,
   setFullAddressUi,
-  setPriceUi,
 } from './model/orderUiSlice.js'
 export { Order } from './ui/Order.jsx'

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { numberWithSpaces } from '@shared/lib/format'
 
 const initialState = {
   fullAddress: '',
@@ -26,14 +27,16 @@ const orderUiSlice = createSlice({
       return initialState
     },
     setCarUi(state, { payload }) {
+      const { name, priceMin, priceMax } = payload
+      const price = `Цена: от ${numberWithSpaces(
+        priceMin,
+      )} до ${numberWithSpaces(priceMax)} ₽`
       return {
         ...initialState,
         fullAddress: state.fullAddress,
-        car: payload,
+        car: name,
+        price,
       }
-    },
-    setPriceUi(state, { payload }) {
-      state.price = payload
     },
     // temp
     setColorUi(state, { payload }) {
@@ -42,13 +45,8 @@ const orderUiSlice = createSlice({
   },
 })
 
-export const {
-  setFullAddressUi,
-  deleteFullAddressUi,
-  setCarUi,
-  setPriceUi,
-  setColorUi,
-} = orderUiSlice.actions
+export const { setFullAddressUi, deleteFullAddressUi, setCarUi, setColorUi } =
+  orderUiSlice.actions
 export const orderUiReducer = orderUiSlice.reducer
 
 export const getOrderUi = (store) => store.orderUi

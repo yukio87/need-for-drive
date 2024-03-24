@@ -1,7 +1,6 @@
 import { mapReducer } from '@entities/map'
 import { orderPostReducer, orderUiReducer } from '@entities/order'
 import { langReducer } from '@features/change-lang'
-import { carReducer } from '@features/select-car'
 import { locationReducer } from '@features/select-location'
 import { configureStore } from '@reduxjs/toolkit'
 
@@ -15,7 +14,6 @@ const store = configureStore({
     orderUi: orderUiReducer,
     orderPost: orderPostReducer,
     map: mapReducer,
-    car: carReducer,
   },
 })
 

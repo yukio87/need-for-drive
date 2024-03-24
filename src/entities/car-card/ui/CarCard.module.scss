@@ -25,6 +25,10 @@
   &:not(.active):hover {
     border: 1px solid var(--c-grey-dark);
   }
+
+  @media (max-width: 767px) {
+    padding: 12px;
+  }
 }
 
 .img-wrapper {

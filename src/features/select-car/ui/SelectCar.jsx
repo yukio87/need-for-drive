@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
+// отключил правило только временно
 import { api } from '@shared/api/api'
-import { urlCars } from '@shared/consts/urls'
+import { urlCars, urlCategories } from '@shared/consts/urls'
 import { RadioButton } from '@shared/ui/radio-button'
 import { useQuery } from '@tanstack/react-query'
 
@@ -18,30 +19,40 @@ export function SelectCar() {
     queryFn: () => api(urlCars, { method: 'get' }),
   })
 
+  const {
+    isLoading: isLoadingCategories,
+    data: dataCategories,
+    isError: isErrorCategories,
+    error: errorCategories,
+  } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () => api(urlCategories, { method: 'get' }),
+  })
+
   const receivedCars = dataCars?.data.data
+  const receivedCategories = dataCategories?.data.data
 
   return (
     <div className={container}>
       <div className={inputContainer}>
         <RadioButton
-          // onChange={() => console.log('change on all-cars')}
-          id="all-cars"
+          value="Все модели"
+          id="Все модели"
+          // onChange={console.log}
           isChecked={true}
         >
           Все модели
         </RadioButton>
-        <RadioButton
-          // onChange={() => console.log('change on economy')}
-          id="economy"
-        >
-          Эконом
-        </RadioButton>
-        <RadioButton
-          // onChange={() => console.log('change on premium')}
-          id="premium"
-        >
-          Премиум
-        </RadioButton>
+        {receivedCategories?.map((item) => (
+          <RadioButton
+            key={item.id}
+            value={item.id}
+            id={item.id}
+            // onChange={console.log}
+          >
+            {item.name}
+          </RadioButton>
+        ))}
       </div>
       <CarList cars={receivedCars} />
     </div>

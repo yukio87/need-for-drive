@@ -5,12 +5,14 @@ export function RadioButton({
   onChange,
   id,
   name = 'group',
+  value,
   isChecked = false,
 }) {
   return (
     <div className={formRadio}>
       <input
-        onChange={onChange}
+        onChange={(e) => onChange(e)}
+        value={value}
         type="radio"
         id={id}
         name={name}
