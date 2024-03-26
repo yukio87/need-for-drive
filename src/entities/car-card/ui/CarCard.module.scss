@@ -1,0 +1,48 @@
+.car-card {
+  cursor: pointer;
+
+  position: relative;
+
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+
+  height: 224px;
+  padding: 16px;
+
+  border: 1px solid var(--c-grey-light);
+
+  span:first-child {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21.09px;
+  }
+
+  span:nth-child(2) {
+    line-height: 16.41px;
+    color: var(--c-grey-dark);
+  }
+
+  &:not(.active):hover {
+    border: 1px solid var(--c-grey-dark);
+  }
+
+  @media (max-width: 767px) {
+    padding: 12px;
+  }
+}
+
+.img-wrapper {
+  place-self: end end;
+  width: 256px;
+  height: 116px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.active {
+  border: 1px solid var(--c-green);
+}

@@ -1,41 +1,60 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import { getOrderUi, setCarPost, setCarUi } from '@entities/order'
-import { useDispatch, useSelector } from 'react-redux'
+/* eslint-disable no-unused-vars */
+// отключил правило только временно
+import { api } from '@shared/api/api'
+import { urlCars, urlCategories } from '@shared/consts/urls'
+import { RadioButton } from '@shared/ui/radio-button'
+import { useQuery } from '@tanstack/react-query'
+
+import { CarList } from './components/ui/CarList'
+import { container, inputContainer } from './SelectCar.module.scss'
 
 export function SelectCar() {
-  const dispatch = useDispatch()
-  const { car } = useSelector(getOrderUi)
+  const {
+    isLoading: isLoadingCars,
+    data: dataCars,
+    isError: isErrorCars,
+    error: errorCars,
+  } = useQuery({
+    queryKey: ['cars'],
+    queryFn: () => api(urlCars, { method: 'get' }),
+  })
+
+  const {
+    isLoading: isLoadingCategories,
+    data: dataCategories,
+    isError: isErrorCategories,
+    error: errorCategories,
+  } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () => api(urlCategories, { method: 'get' }),
+  })
+
+  const receivedCars = dataCars?.data.data
+  const receivedCategories = dataCategories?.data.data
 
   return (
-    <>
-      <div>
-        <input
-          onChange={(e) => {
-            dispatch(setCarPost(e.target.value))
-            dispatch(setCarUi(e.target.value))
-          }}
-          type="radio"
-          id="car#1"
-          name="car"
-          value="car#1"
-          checked={car === 'car#1'}
-        />
-        <label htmlFor="car#1">Car#1</label>
+    <div className={container}>
+      <div className={inputContainer}>
+        <RadioButton
+          value="Все модели"
+          id="Все модели"
+          // onChange={console.log}
+          isChecked={true}
+        >
+          Все модели
+        </RadioButton>
+        {receivedCategories?.map((item) => (
+          <RadioButton
+            key={item.id}
+            value={item.id}
+            id={item.id}
+            // onChange={console.log}
+          >
+            {item.name}
+          </RadioButton>
+        ))}
       </div>
-      <div>
-        <input
-          onChange={(e) => {
-            dispatch(setCarPost(e.target.value))
-            dispatch(setCarUi(e.target.value))
-          }}
-          type="radio"
-          id="car#2"
-          name="car"
-          value="car#2"
-          checked={car === 'car#2'}
-        />
-        <label htmlFor="car#2">Car#2</label>
-      </div>
-    </>
+      <CarList cars={receivedCars} />
+    </div>
   )
 }

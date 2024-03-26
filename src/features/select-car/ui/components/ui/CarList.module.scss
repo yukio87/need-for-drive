@@ -1,0 +1,34 @@
+@import '@app/styles/sass/main';
+
+.container {
+  position: relative;
+  height: 100%;
+}
+
+.car-list {
+  @include custom-scrollbar;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 368px);
+
+  width: 100%;
+  height: 100%;
+  padding-right: 16px;
+
+  @media (max-width: 1222px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 767px) {
+    position: relative;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
