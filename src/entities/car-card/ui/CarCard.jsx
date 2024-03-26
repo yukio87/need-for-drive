@@ -2,6 +2,7 @@ import { getOrderUi, setCarPost, setCarUi } from '@entities/order'
 import { numberWithSpaces } from '@shared/lib/format'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { pricePlaceholder } from '../consts/placeholders'
 import { active, carCard, imgWrapper } from './CarCard.module.scss'
 
 export function CarCard({ car }) {
@@ -11,7 +12,7 @@ export function CarCard({ car }) {
   const { name, priceMax, priceMin, thumbnail } = car
 
   const isActiveCard = carUi === car.name
-  const model = name.slice(name.indexOf(',') + 2)
+  const model = name?.slice(name.indexOf(',') + 2)
 
   const handleItemClick = () => {
     if (!isActiveCard) {
@@ -19,6 +20,8 @@ export function CarCard({ car }) {
       dispatch(setCarUi(car))
     }
   }
+
+  if (!name) return null
 
   return (
     <div
@@ -28,8 +31,9 @@ export function CarCard({ car }) {
     >
       <span>{model}</span>
       <span>
-        {`${numberWithSpaces(priceMin)} - ${numberWithSpaces(priceMax)}`}{' '}
-        &#8381;
+        {priceMin && priceMax
+          ? `${numberWithSpaces(priceMin)} - ${numberWithSpaces(priceMax)} ₽`
+          : pricePlaceholder}
       </span>
       <div className={imgWrapper}>
         <img src={thumbnail.path} alt="car-info" />

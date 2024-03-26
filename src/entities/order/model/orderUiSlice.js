@@ -28,9 +28,13 @@ const orderUiSlice = createSlice({
     },
     setCarUi(state, { payload }) {
       const { name, priceMin, priceMax } = payload
-      const price = `Цена: от ${numberWithSpaces(
-        priceMin,
-      )} до ${numberWithSpaces(priceMax)} ₽`
+      const price =
+        priceMin && priceMax
+          ? `Цена: от ${numberWithSpaces(priceMin)} до ${numberWithSpaces(
+              priceMax,
+            )} ₽`
+          : ''
+
       return {
         ...initialState,
         fullAddress: state.fullAddress,
