@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { carNamePlaceholder } from '@shared/consts/placeholders'
 import { numberWithSpaces } from '@shared/lib/format'
 
 const initialState = {
@@ -38,7 +39,7 @@ const orderUiSlice = createSlice({
       return {
         ...initialState,
         fullAddress: state.fullAddress,
-        car: name,
+        car: name || carNamePlaceholder,
         price,
       }
     },

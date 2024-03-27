@@ -1,8 +1,11 @@
 import { getOrderUi, setCarPost, setCarUi } from '@entities/order'
+import {
+  carNamePlaceholder,
+  pricePlaceholder,
+} from '@shared/consts/placeholders'
 import { numberWithSpaces } from '@shared/lib/format'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { pricePlaceholder } from '../consts/placeholders'
 import { active, carCard, imgWrapper } from './CarCard.module.scss'
 
 export function CarCard({ car }) {
@@ -21,15 +24,13 @@ export function CarCard({ car }) {
     }
   }
 
-  if (!name) return null
-
   return (
     <div
       onClick={handleItemClick}
       className={`${carCard} ${isActiveCard && active}`}
       aria-hidden="true"
     >
-      <span>{model}</span>
+      <span>{model || carNamePlaceholder}</span>
       <span>
         {priceMin && priceMax
           ? `${numberWithSpaces(priceMin)} - ${numberWithSpaces(priceMax)} ₽`
