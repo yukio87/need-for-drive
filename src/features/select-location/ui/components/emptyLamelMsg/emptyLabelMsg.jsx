@@ -1,7 +1,5 @@
+import { Error } from '@shared/ui/errors'
+
 export function EmptyLabelMsg({ isError, error }) {
-  return isError ? (
-    <span style={{ color: 'red' }}>{error.message}</span>
-  ) : (
-    'Совпадений не найдено.'
-  )
+  return isError ? <Error message={error.message} /> : 'Совпадений не найдено.'
 }

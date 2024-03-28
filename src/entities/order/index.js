@@ -17,4 +17,5 @@ export {
   setColorUi,
   setFullAddressUi,
 } from './model/orderUiSlice.js'
+export { getDataIsFilledForPages } from './model/selectors.js'
 export { Order } from './ui/Order.jsx'

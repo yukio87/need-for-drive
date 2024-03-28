@@ -1,4 +1,4 @@
-import { getDataIsFilledForPages } from '@shared/lib/selectors/getDataIsFilledForPages'
+import { getDataIsFilledForPages } from '@entities/order'
 import { Icon } from '@shared/ui/icon'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'

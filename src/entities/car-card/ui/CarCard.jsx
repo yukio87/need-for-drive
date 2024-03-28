@@ -1,4 +1,8 @@
 import { getOrderUi, setCarPost, setCarUi } from '@entities/order'
+import {
+  carNamePlaceholder,
+  pricePlaceholder,
+} from '@shared/consts/placeholders'
 import { numberWithSpaces } from '@shared/lib/format'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -11,7 +15,7 @@ export function CarCard({ car }) {
   const { name, priceMax, priceMin, thumbnail } = car
 
   const isActiveCard = carUi === car.name
-  const model = name.slice(name.indexOf(',') + 2)
+  const model = name?.slice(name.indexOf(',') + 2)
 
   const handleItemClick = () => {
     if (!isActiveCard) {
@@ -26,10 +30,11 @@ export function CarCard({ car }) {
       className={`${carCard} ${isActiveCard && active}`}
       aria-hidden="true"
     >
-      <span>{model}</span>
+      <span>{model || carNamePlaceholder}</span>
       <span>
-        {`${numberWithSpaces(priceMin)} - ${numberWithSpaces(priceMax)}`}{' '}
-        &#8381;
+        {priceMin && priceMax
+          ? `${numberWithSpaces(priceMin)} - ${numberWithSpaces(priceMax)} ₽`
+          : pricePlaceholder}
       </span>
       <div className={imgWrapper}>
         <img src={thumbnail.path} alt="car-info" />

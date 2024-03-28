@@ -2,21 +2,21 @@ import { formRadio } from './RadioButton.module.scss'
 
 export function RadioButton({
   children,
-  onChange,
+  handleChange,
   id,
   name = 'group',
   value,
-  isChecked = false,
+  defaultChecked = false,
 }) {
   return (
     <div className={formRadio}>
       <input
-        onChange={(e) => onChange(e)}
+        onChange={(e) => handleChange(e.target.value)}
         value={value}
         type="radio"
         id={id}
         name={name}
-        defaultChecked={isChecked}
+        defaultChecked={defaultChecked}
       />
       <label htmlFor={id}>{children}</label>
     </div>
