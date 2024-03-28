@@ -30,6 +30,7 @@ export function SelectCar() {
   } = useQuery({
     queryKey: ['categories'],
     queryFn: () => api(urlCategories, { method: 'get' }),
+    enabled: !!dataCars,
   })
 
   const receivedCars = dataCars?.data.data
@@ -46,7 +47,7 @@ export function SelectCar() {
       <div className={inputContainer}>
         {isLoadingCategories && <Loader />}
         {isErrorCategories && <Error message={errorCategories.message} />}
-        {!isLoadingCategories && !isErrorCategories && (
+        {dataCategories && (
           <>
             <RadioButton
               value="all-cars"
