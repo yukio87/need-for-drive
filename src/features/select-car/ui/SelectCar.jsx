@@ -12,14 +12,10 @@ import { container, inputContainer } from './SelectCar.module.scss'
 export function SelectCar() {
   const [filteredCars, setFilteredCars] = useState([])
 
-  const {
-    isLoading: isLoadingCars,
-    data: dataCars,
-    isError: isErrorCars,
-    error: errorCars,
-  } = useQuery({
+  const { isLoading: isLoadingCars, data: dataCars } = useQuery({
     queryKey: ['cars'],
     queryFn: () => api(urlCars, { method: 'get' }),
+    throwOnError: true,
   })
 
   const {
@@ -70,9 +66,9 @@ export function SelectCar() {
           </>
         )}
       </div>
-      {isLoadingCars && <Loader />}
-      {isErrorCars && <Error error={errorCars} />}
-      {!isLoadingCars && !isErrorCars && (
+      {isLoadingCars ? (
+        <Loader />
+      ) : (
         <CarList cars={filteredCars.length > 0 ? filteredCars : receivedCars} />
       )}
     </div>
