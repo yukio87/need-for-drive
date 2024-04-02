@@ -1,6 +1,6 @@
 import { updateDevice } from '@app/store/appSlice'
+import { getDataIsFilledForPages } from '@entities/order'
 import { deviceDetection } from '@shared/lib/device'
-import { getDataIsFilledForPages } from '@shared/lib/selectors/getDataIsFilledForPages'
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'

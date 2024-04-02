@@ -1,0 +1,30 @@
+.container {
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--c-black);
+
+  p {
+    margin-bottom: 6px;
+  }
+
+  button {
+    padding: 4px 8px;
+
+    line-height: 21.09px;
+    color: rgb(255 255 255);
+
+    background: linear-gradient(to right, rgb(14 194 97), rgb(3 159 103));
+    border: none;
+
+    transition: filter 0.2s linear;
+
+    &:hover,
+    &:focus {
+      filter: brightness(90%);
+    }
+
+    &:active {
+      filter: brightness(80%);
+    }
+  }
+}

@@ -1,22 +1,21 @@
-/* eslint-disable no-unused-vars */
-// отключил правило только временно
 import { api } from '@shared/api/api'
 import { urlCars, urlCategories } from '@shared/consts/urls'
+import { Error } from '@shared/ui/errors'
+import { Loader } from '@shared/ui/loaders'
 import { RadioButton } from '@shared/ui/radio-button'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 
 import { CarList } from './components/ui/CarList'
 import { container, inputContainer } from './SelectCar.module.scss'
 
 export function SelectCar() {
-  const {
-    isLoading: isLoadingCars,
-    data: dataCars,
-    isError: isErrorCars,
-    error: errorCars,
-  } = useQuery({
+  const [filteredCars, setFilteredCars] = useState([])
+
+  const { isLoading: isLoadingCars, data: dataCars } = useQuery({
     queryKey: ['cars'],
     queryFn: () => api(urlCars, { method: 'get' }),
+    throwOnError: true,
   })
 
   const {
@@ -27,34 +26,51 @@ export function SelectCar() {
   } = useQuery({
     queryKey: ['categories'],
     queryFn: () => api(urlCategories, { method: 'get' }),
+    enabled: !!dataCars,
   })
 
   const receivedCars = dataCars?.data.data
   const receivedCategories = dataCategories?.data.data
 
+  const handleChange = (value) => {
+    setFilteredCars(
+      receivedCars.filter((item) => item.categoryId.id === Number(value)),
+    )
+  }
+
   return (
     <div className={container}>
       <div className={inputContainer}>
-        <RadioButton
-          value="Все модели"
-          id="Все модели"
-          // onChange={console.log}
-          isChecked={true}
-        >
-          Все модели
-        </RadioButton>
-        {receivedCategories?.map((item) => (
-          <RadioButton
-            key={item.id}
-            value={item.id}
-            id={item.id}
-            // onChange={console.log}
-          >
-            {item.name}
-          </RadioButton>
-        ))}
+        {isLoadingCategories && <Loader />}
+        {isErrorCategories && <Error message={errorCategories.message} />}
+        {dataCategories && (
+          <>
+            <RadioButton
+              value="all-cars"
+              id="all-cars"
+              handleChange={handleChange}
+              defaultChecked={true}
+            >
+              Все модели
+            </RadioButton>
+            {receivedCategories.map((item) => (
+              <RadioButton
+                key={item.id}
+                value={item.id}
+                id={item.id}
+                handleChange={handleChange}
+              >
+                {item.name}
+              </RadioButton>
+            ))}
+          </>
+        )}
       </div>
-      <CarList cars={receivedCars} />
+      {isLoadingCars ? (
+        <Loader />
+      ) : (
+        <CarList cars={filteredCars.length > 0 ? filteredCars : receivedCars} />
+      )}
     </div>
   )
 }
