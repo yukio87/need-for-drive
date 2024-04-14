@@ -32,7 +32,7 @@ export function Order() {
             ),
         )}
       </div>
-      {orderUi.price && <p className={priceStyles}>{orderUi.price}</p>}
+      {orderUi.price && <p className={priceStyles}>Цена: {orderUi.price} ₽</p>}
       <button
         disabled={
           nextPathName === pathLocationPage ? false : !curPageDataIsFilled

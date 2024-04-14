@@ -1,1 +1,1 @@
-export { EmptyLabelMsg } from './emptyLamelMsg/emptyLabelMsg.jsx'
+export { EmptyLabelMsg } from './EmptyLabelMsg/EmptyLabelMsg.jsx'

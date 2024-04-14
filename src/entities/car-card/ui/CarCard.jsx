@@ -3,7 +3,7 @@ import {
   carNamePlaceholder,
   pricePlaceholder,
 } from '@shared/consts/placeholders'
-import { numberWithSpaces } from '@shared/lib/format'
+import { getNumberWithSpaces } from '@shared/lib/format'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { active, carCard, imgWrapper } from './CarCard.module.scss'
@@ -33,7 +33,9 @@ export function CarCard({ car }) {
       <span>{model || carNamePlaceholder}</span>
       <span>
         {priceMin && priceMax
-          ? `${numberWithSpaces(priceMin)} - ${numberWithSpaces(priceMax)} ₽`
+          ? `${getNumberWithSpaces(priceMin)} - ${getNumberWithSpaces(
+              priceMax,
+            )} ₽`
           : pricePlaceholder}
       </span>
       <div className={imgWrapper}>

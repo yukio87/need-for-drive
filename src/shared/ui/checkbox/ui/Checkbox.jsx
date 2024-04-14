@@ -1,24 +1,22 @@
-import { formRadio } from './RadioButton.module.scss'
+import { formCheckbox } from './Checkbox.module.scss'
 
-export function RadioButton({
+export function Checkbox({
   children,
   handleChange,
   id,
   name,
   value,
-  defaultChecked,
   checked,
   disabled,
 }) {
   return (
-    <div className={formRadio}>
+    <div className={formCheckbox}>
       <input
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.checked)}
         value={value}
-        type="radio"
+        type="checkbox"
         id={id}
         name={name}
-        defaultChecked={defaultChecked}
         checked={checked}
         disabled={disabled}
       />

@@ -1,0 +1,83 @@
+@import '@app/styles/sass/main';
+
+.container {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.header {
+  margin-bottom: 16px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+
+  width: max-content;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+
+  span {
+    margin-right: 8px;
+  }
+}
+
+.input {
+  @include input();
+
+  position: relative;
+  width: 224px;
+
+  &::placeholder {
+    color: var(--c-grey-dark);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: #fff;
+  }
+}
+
+.icon-clear-input {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 1;
+  right: 4%;
+  bottom: 3.5px;
+
+  svg {
+    &:hover {
+      color: var(--c-green);
+    }
+  }
+}
+
+:global(.react-datepicker__day--selected) {
+  background-color: var(--c-green);
+
+  &:hover {
+    background-color: rgb(13 180 91);
+  }
+}
+
+:global(.react-datepicker__day--keyboard-selected) {
+  background-color: rgb(181 243 210);
+
+  &:hover {
+    background-color: rgb(13 180 91);
+  }
+}
+
+:global(.react-datepicker__time-list-item--selected) {
+  background-color: var(--c-green) !important;
+}
