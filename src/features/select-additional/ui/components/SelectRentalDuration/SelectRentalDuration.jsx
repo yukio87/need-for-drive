@@ -2,7 +2,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import {
   deleteDatePointPost,
-  deleteRateUi,
   deleteRentalDurationUi,
   getOrderPost,
   setDatePointPost,
@@ -10,12 +9,12 @@ import {
 } from '@entities/order'
 import { iconBasicStyles } from '@shared/consts/basicStyles'
 import { Icon } from '@shared/ui/icon'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { minRentalDuration } from './consts/rentalDuration'
-import { changeTimeFrom, changeTimeTo } from './lib/changeTime'
+import { changeTime } from './lib/changeTime'
 import {
   container,
   header,
@@ -30,43 +29,45 @@ export function SelectRentalDuration() {
   const dispatch = useDispatch()
   const { dateFrom, dateTo } = useSelector(getOrderPost)
 
-  useEffect(() => {
-    dispatch(setRentalDurationUi({ dateFrom, dateTo }))
-  }, [dispatch, dateFrom, dateTo])
-
-  const handleChangeFrom = (date, event) => {
+  const handleChangeFrom = (date) => {
     dispatch(
       setDatePointPost({
         pointName: 'dateFrom',
-        value: event ? changeTimeFrom(date, now, dateTo) : date?.getTime(),
+        value: changeTime(date, now, null, dateTo, true),
       }),
     )
     if (dateTo)
-      dispatch(setRentalDurationUi({ dateFrom: date?.getTime(), dateTo }))
-    if (!date) dispatch(deleteRateUi())
+      dispatch(
+        setRentalDurationUi({
+          dateFrom: changeTime(date, now, null, dateTo, true),
+          dateTo,
+        }),
+      )
   }
 
   const handleClickDeleteDateFrom = () => {
     dispatch(deleteRentalDurationUi())
-    dispatch(deleteRateUi())
     dispatch(deleteDatePointPost({ pointName: 'dateFrom' }))
   }
 
-  const handleChangeTo = (date, event) => {
+  const handleChangeTo = (date) => {
     dispatch(
       setDatePointPost({
         pointName: 'dateTo',
-        value: event ? changeTimeTo(date, now, dateFrom) : date?.getTime(),
+        value: changeTime(date, now, dateFrom),
       }),
     )
     if (dateFrom)
-      dispatch(setRentalDurationUi({ dateFrom, dateTo: date?.getTime() }))
-    if (!date) dispatch(deleteRateUi())
+      dispatch(
+        setRentalDurationUi({
+          dateFrom,
+          dateTo: changeTime(date, now, dateFrom),
+        }),
+      )
   }
 
   const handleClickDeleteDateTo = () => {
     dispatch(deleteRentalDurationUi())
-    dispatch(deleteRateUi())
     dispatch(deleteDatePointPost({ pointName: 'dateTo' }))
   }
 
@@ -86,7 +87,7 @@ export function SelectRentalDuration() {
       <p className={header}>Дата аренды</p>
       <div className={inputs}>
         <div className={inputWrapper}>
-          {dateFrom && (
+          {dateFrom ? (
             <div
               onClick={handleClickDeleteDateFrom}
               className={iconClearInput}
@@ -94,7 +95,7 @@ export function SelectRentalDuration() {
             >
               <Icon name="iconClearInput" styles={iconBasicStyles} />
             </div>
-          )}
+          ) : null}
           <span>C</span>
           <DatePicker
             className={input}
@@ -108,11 +109,10 @@ export function SelectRentalDuration() {
             maxDate={dateTo || null}
             filterTime={filterPassedTimeFrom}
             timeIntervals={5}
-            // portalId="root-portal"
           />
         </div>
         <div className={inputWrapper}>
-          {dateTo && (
+          {dateTo ? (
             <div
               onClick={handleClickDeleteDateTo}
               className={iconClearInput}
@@ -120,7 +120,7 @@ export function SelectRentalDuration() {
             >
               <Icon name="iconClearInput" styles={iconBasicStyles} />
             </div>
-          )}
+          ) : null}
           <span>По</span>
           <DatePicker
             className={input}
@@ -133,7 +133,6 @@ export function SelectRentalDuration() {
             minDate={dateFrom || now}
             filterTime={filterPassedTimeTo}
             timeIntervals={5}
-            // portalId="root-portal"
           />
         </div>
       </div>

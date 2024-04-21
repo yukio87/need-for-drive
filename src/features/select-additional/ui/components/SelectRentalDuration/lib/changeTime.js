@@ -2,7 +2,14 @@ import moment from 'moment'
 
 import { minRentalDuration } from '../consts/rentalDuration.js'
 
-export const changeTimeFrom = (date, now, dateTo) => {
+export const changeTime = (
+  date,
+  now,
+  dateFrom,
+  dateTo,
+  isFromOperation = false,
+) => {
+  const isBeginningOfDay = moment(date).startOf('day').isSame(date)
   const dateWithCurrentTime = moment(date)
     .set({
       hour: moment(now).hour(),
@@ -11,25 +18,24 @@ export const changeTimeFrom = (date, now, dateTo) => {
     })
     .valueOf()
 
-  return dateWithCurrentTime > dateTo - minRentalDuration
-    ? dateTo - minRentalDuration
-    : dateWithCurrentTime
-}
+  if (!isBeginningOfDay) return date.getTime()
 
-export const changeTimeTo = (date, now, dateFrom) => {
-  const dateWithCurrentTime = moment(date)
-    .set({
-      hour: moment(now).hour(),
-      minute: moment(now).minute(),
-      second: moment(now).second(),
-    })
-    .valueOf()
-
-  if (dateWithCurrentTime < dateFrom + minRentalDuration)
-    return dateFrom + minRentalDuration
-
-  if (dateWithCurrentTime < now.getTime() + minRentalDuration)
-    return now.getTime() + minRentalDuration
+  if (isFromOperation) {
+    if (dateTo) {
+      return dateWithCurrentTime > dateTo - minRentalDuration
+        ? dateTo - minRentalDuration
+        : dateWithCurrentTime
+    }
+  } else {
+    if (dateFrom) {
+      return dateWithCurrentTime < dateFrom + minRentalDuration
+        ? dateFrom + minRentalDuration
+        : dateWithCurrentTime
+    }
+    if (dateWithCurrentTime < now.getTime() + minRentalDuration) {
+      return now.getTime() + minRentalDuration
+    }
+  }
 
   return dateWithCurrentTime
 }

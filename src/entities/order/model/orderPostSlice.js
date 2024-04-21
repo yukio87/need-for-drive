@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { millisecsByRateTypeId } from '../consts/millisecsBy.js'
-
 const initialState = {
   cityId: {},
   pointId: {},
   carId: {},
   color: '',
-  dateFrom: undefined,
-  dateTo: undefined,
+  dateFrom: 0,
+  dateTo: 0,
   rateId: {},
   isFullTank: false,
   isNeedChildChair: false,
@@ -52,19 +50,20 @@ const orderPostSlice = createSlice({
     },
     setDatePointPost(state, { payload }) {
       const { pointName, value } = payload
-      state[pointName] = value
-      if (!value) state.rateId = {}
+      state[pointName] = value || 0
+      state.rateId = {}
+      state.price = 0
     },
     deleteDatePointPost(state, { payload }) {
       const { pointName } = payload
-      state[pointName] = undefined
+      state[pointName] = 0
       state.rateId = {}
+      state.price = 0
     },
     setRatePost(state, { payload }) {
-      state.rateId = payload
-      state.dateTo =
-        state.dateFrom + millisecsByRateTypeId[payload.rateTypeId.id]
-      state.price = Number(payload.price)
+      const { item: rate, roundedPrice } = payload
+      state.rateId = rate
+      state.price = roundedPrice
     },
     setServicePointPost(state, { payload }) {
       const { pointName, isChecked, price } = payload

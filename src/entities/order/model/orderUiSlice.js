@@ -27,19 +27,12 @@ const orderUiSlice = createSlice({
       return initialState
     },
     setCarUi(state, { payload }) {
-      const { name, priceMin, priceMax } = payload
-      const price =
-        priceMin && priceMax
-          ? `от ${getNumberWithSpaces(priceMin)} до ${getNumberWithSpaces(
-              priceMax,
-            )}`
-          : ''
+      const { name } = payload
 
       return {
         ...initialState,
         fullAddress: state.fullAddress,
         car: name,
-        price,
       }
     },
     setColorUi(state, { payload }) {
@@ -49,24 +42,25 @@ const orderUiSlice = createSlice({
       const { dateFrom, dateTo } = payload
       state.rentalDuration =
         dateFrom && dateTo ? calcDateSubtraction(dateFrom, dateTo) : ''
+      state.rate = ''
+      state.price = ''
     },
     deleteRentalDurationUi(state) {
       state.rentalDuration = ''
+      state.rate = ''
+      state.price = ''
     },
     setRateUi(state, { payload }) {
-      const { rateTypeId, price } = payload
-      state.rate = rateTypeId.name
-      state.price = `${getNumberWithSpaces(price)}`
-    },
-    deleteRateUi(state) {
-      state.rate = ''
+      const { item: rate, roundedPrice } = payload
+      state.rate = rate.rateTypeId.name
+      state.price = getNumberWithSpaces(roundedPrice)
     },
     setServicePointUi(state, { payload }) {
       const { pointName, isChecked, price } = payload
       state[pointName] = isChecked ? 'Да' : ''
       state.price = isChecked
-        ? `${getNumberWithSpaces(+state.price.replace(/\s/g, '') + price)}`
-        : `${getNumberWithSpaces(+state.price.replace(/\s/g, '') - price)}`
+        ? getNumberWithSpaces(+state.price.replace(/\s/g, '') + price)
+        : getNumberWithSpaces(+state.price.replace(/\s/g, '') - price)
     },
   },
 })
@@ -79,7 +73,6 @@ export const {
   setRentalDurationUi,
   deleteRentalDurationUi,
   setRateUi,
-  deleteRateUi,
   setServicePointUi,
 } = orderUiSlice.actions
 export const orderUiReducer = orderUiSlice.reducer

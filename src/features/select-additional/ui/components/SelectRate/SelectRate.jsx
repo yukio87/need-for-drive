@@ -1,6 +1,5 @@
 import { getOrderPost, setRatePost, setRateUi } from '@entities/order'
 import { api } from '@shared/api/api'
-import { millisecsInMonth, millisecsInWeek } from '@shared/consts/millisecsIn'
 import { urlRates } from '@shared/consts/urls'
 import { Loader } from '@shared/ui/loaders'
 import { RadioButton } from '@shared/ui/radio-button'
@@ -8,6 +7,12 @@ import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { amountOfDaysByRateTypeId } from './consts/amountOfDaysByRateTypeId'
+import {
+  millisecsInDay,
+  millisecsInMonth,
+  millisecsInWeek,
+} from './consts/millisecsIn'
 import {
   container,
   header,
@@ -25,25 +30,31 @@ export function SelectRate() {
     throwOnError: true,
   })
 
-  const rentalDuration = dateTo - dateFrom
+  const rentalDuration = dateTo && dateFrom ? dateTo - dateFrom : undefined
   const receivedRates = dataRates?.data.data
 
-  const disabledByRateTypeName = {
-    Неделя:
+  const disabledByRateTypeId = {
+    1:
       rentalDuration < millisecsInWeek ||
       rentalDuration >= millisecsInMonth ||
       !rentalDuration,
-    Месяц: rentalDuration < millisecsInMonth || !rentalDuration,
-    Сутки: rentalDuration >= millisecsInWeek || !rentalDuration,
+    2: rentalDuration < millisecsInMonth || !rentalDuration,
+    3: rentalDuration >= millisecsInWeek || !rentalDuration,
   }
 
   const handleChangeRate = (item) => {
-    dispatch(setRatePost(item))
-    dispatch(setRateUi(item))
+    const roundedAmountOfDays = Math.round(rentalDuration / millisecsInDay) || 1
+    const roundedPrice = Math.round(
+      (roundedAmountOfDays / amountOfDaysByRateTypeId[item.rateTypeId.id]) *
+        Number(item.price),
+    )
+
+    dispatch(setRatePost({ item, roundedPrice }))
+    dispatch(setRateUi({ item, roundedPrice }))
   }
 
   const handleClick = (item) =>
-    disabledByRateTypeName[item.rateTypeId.name] &&
+    disabledByRateTypeId[item.rateTypeId.id] &&
     toast.error('Тариф не соответствует выбранной дате')
 
   return (
@@ -67,7 +78,7 @@ export function SelectRate() {
                   id={item.id}
                   handleChange={() => handleChangeRate(item)}
                   checked={rateId.id === item.id}
-                  disabled={disabledByRateTypeName[item.rateTypeId.name]}
+                  disabled={disabledByRateTypeId[item.rateTypeId.id]}
                 >{`${item.rateTypeId.name}, ${item.price} ₽`}</RadioButton>
               </div>
             ))

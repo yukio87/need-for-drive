@@ -12,7 +12,6 @@ export {
 } from './model/orderPostSlice.js'
 export {
   deleteFullAddressUi,
-  deleteRateUi,
   deleteRentalDurationUi,
   getCarDataIsFilled,
   getExtraDataIsFilled,

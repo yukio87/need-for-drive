@@ -21,6 +21,23 @@ export function SelectAdditionalServices() {
 
   const handleClick = () => !rateId.id && toast.error('Выберите основные опции')
 
+  const handleChange = (isChecked, item) => {
+    dispatch(
+      setServicePointPost({
+        pointName: item.id,
+        isChecked,
+        price: item.price,
+      }),
+    )
+    dispatch(
+      setServicePointUi({
+        pointName: item.id,
+        isChecked,
+        price: item.price,
+      }),
+    )
+  }
+
   return (
     <div className={container}>
       <p className={header}>Доп услуги</p>
@@ -36,22 +53,7 @@ export function SelectAdditionalServices() {
               id={item.id}
               disabled={!rateId.id}
               checked={rest[item.id]}
-              handleChange={(isChecked) => {
-                dispatch(
-                  setServicePointPost({
-                    pointName: item.id,
-                    isChecked,
-                    price: item.price,
-                  }),
-                )
-                dispatch(
-                  setServicePointUi({
-                    pointName: item.id,
-                    isChecked,
-                    price: item.price,
-                  }),
-                )
-              }}
+              handleChange={(isChecked) => handleChange(isChecked, item)}
             >{`${item.text}, ${item.price} ₽`}</Checkbox>
           </div>
         ))}

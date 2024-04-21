@@ -1,4 +1,5 @@
 import '@app/styles/sass/main.scss'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '@app/fonts/fonts.scss'
 
 import App from '@app/App'

@@ -7,11 +7,11 @@ export function getNumberWithSpaces(x) {
 export const calcDateSubtraction = (startDate, endDate) => {
   const diff = moment.duration(moment(endDate).diff(moment(startDate)))
 
-  const days = diff.days()
+  const days = diff.asDays()
   const hours = diff.hours()
   const minutes = diff.minutes()
 
-  const formattedDiff = `${days}д ${hours}ч ${minutes}м`
+  const formattedDiff = `${Math.floor(days)}д ${hours}ч ${minutes}м`
 
   return formattedDiff
 }
