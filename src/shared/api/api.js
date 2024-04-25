@@ -8,6 +8,7 @@ export async function api(url, options) {
       url,
       params: options.params,
       method: options.method,
+      data: options.data,
     })
 
     return res

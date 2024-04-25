@@ -1,5 +1,39 @@
 .container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+
+  max-width: 736px;
   height: 100%;
+
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--c-black);
+
+  img {
+    width: 256px;
+    height: 116px;
+    object-fit: cover;
+  }
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name-styles {
+  font-size: 18px;
+  line-height: 21.09px;
+}
+
+.number-styles {
+  width: max-content;
+  padding: 4px 8px;
+  border: 2px solid var(--c-grey-dark);
+  border-radius: 4px;
+}
+
+.bold-text {
+  font-weight: 700;
 }

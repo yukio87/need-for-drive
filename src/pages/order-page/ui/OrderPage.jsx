@@ -1,12 +1,12 @@
 import { Order } from '@entities/order'
 import { Content } from '@shared/ui/content'
 import { Page } from '@shared/ui/page'
-import { ConfirmedPageMain } from '@widgets/confirmedpage-main'
+import { OrderPageMain } from '@widgets/orderpage-main'
 
-export function ConfirmedPage() {
+export function OrderPage() {
   return (
     <Page>
-      <Content main={<ConfirmedPageMain />} aside={<Order />} />
+      <Content main={<OrderPageMain />} aside={<Order />} />
     </Page>
   )
 }

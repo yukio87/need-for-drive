@@ -1,5 +1,10 @@
-import { routesPaths } from '@shared/consts/routesPaths'
+import { api } from '@shared/api/api'
+import { pathOrderPage, routesPaths } from '@shared/consts/routesPaths'
+import { urlOrder } from '@shared/consts/urls'
 import { getNumberWithSpaces } from '@shared/lib/format'
+import { ModalConfirm } from '@shared/ui/modal-confirm'
+import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,46 +18,65 @@ import { OrderDetail } from './components'
 import { orderContainer, orderStyles, priceStyles } from './Order.module.scss'
 
 export function Order() {
+  const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
   const orderUi = useSelector(getOrderUi)
-  const { carId } = useSelector(getOrderPost)
+  const orderPost = useSelector(getOrderPost)
+
+  const { carId } = orderPost
+  const { pathOrderPageWithId } = routesPaths
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: () => api(urlOrder, { method: 'post', data: orderPost }),
+    onSuccess: (data) => navigate(`${pathOrderPage}/${data.data.data.id}`),
+    // onError: (err) => console.log(err),
+  })
 
   const curPageDataIsFilled = usePageDataIsFilled()
   const { nextPathName, buttonText } = useNavigateTo()
 
-  const { pathLocationPage } = routesPaths
-
   return (
-    <div className={orderStyles}>
-      <h5>Ваш заказ</h5>
-      <div className={orderContainer}>
-        {Object.keys(orderUi).map(
-          (orderPoint, i) =>
-            orderUi[orderPoint] &&
-            orderPoint !== 'price' && (
-              <OrderDetail option={options[i]} key={orderPoint}>
-                {orderUi[orderPoint]}
-              </OrderDetail>
-            ),
+    <>
+      <ModalConfirm
+        isOpen={isOpen}
+        handleClickOnAllowBtn={mutate}
+        handleClickOnDisallowBtn={() => setIsOpen(false)}
+        disabledAllowBtn={isPending}
+      />
+      <div className={orderStyles}>
+        <h5>Ваш заказ</h5>
+        <div className={orderContainer}>
+          {Object.keys(orderUi).map(
+            (orderPoint, i) =>
+              orderUi[orderPoint] &&
+              orderPoint !== 'price' && (
+                <OrderDetail option={options[i]} key={orderPoint}>
+                  {orderUi[orderPoint]}
+                </OrderDetail>
+              ),
+          )}
+        </div>
+        {Object.keys(carId).length > 0 && (
+          <p className={priceStyles}>
+            Цена:{' '}
+            {getNumberWithSpaces(orderUi.price) ||
+              getPriceRangeString(carId.priceMin, carId.priceMax)}{' '}
+            ₽
+          </p>
         )}
+        <button
+          disabled={
+            nextPathName === pathOrderPageWithId ? false : !curPageDataIsFilled
+          }
+          type="button"
+          onClick={() => {
+            if (nextPathName === pathOrderPageWithId) setIsOpen(true)
+            else navigate(nextPathName)
+          }}
+        >
+          {buttonText}
+        </button>
       </div>
-      {Object.keys(carId).length > 0 && (
-        <p className={priceStyles}>
-          Цена:{' '}
-          {getNumberWithSpaces(orderUi.price) ||
-            getPriceRangeString(carId.priceMin, carId.priceMax)}{' '}
-          ₽
-        </p>
-      )}
-      <button
-        disabled={
-          nextPathName === pathLocationPage ? false : !curPageDataIsFilled
-        }
-        type="button"
-        onClick={() => navigate(nextPathName)}
-      >
-        {buttonText}
-      </button>
-    </div>
+    </>
   )
 }
