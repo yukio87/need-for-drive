@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { carNamePlaceholder } from '@shared/consts/placeholders'
-import { numberWithSpaces } from '@shared/lib/format'
+import { calcDateSubtraction, getNumberWithSpaces } from '@shared/lib/format'
 
 const initialState = {
   fullAddress: '',
@@ -28,30 +27,54 @@ const orderUiSlice = createSlice({
       return initialState
     },
     setCarUi(state, { payload }) {
-      const { name, priceMin, priceMax } = payload
-      const price =
-        priceMin && priceMax
-          ? `Цена: от ${numberWithSpaces(priceMin)} до ${numberWithSpaces(
-              priceMax,
-            )} ₽`
-          : ''
+      const { name } = payload
 
       return {
         ...initialState,
         fullAddress: state.fullAddress,
-        car: name || carNamePlaceholder,
-        price,
+        car: name,
       }
     },
-    // temp
     setColorUi(state, { payload }) {
       state.color = payload
+    },
+    setRentalDurationUi(state, { payload }) {
+      const { dateFrom, dateTo } = payload
+      state.rentalDuration =
+        dateFrom && dateTo ? calcDateSubtraction(dateFrom, dateTo) : ''
+      state.rate = ''
+      state.price = ''
+    },
+    deleteRentalDurationUi(state) {
+      state.rentalDuration = ''
+      state.rate = ''
+      state.price = ''
+    },
+    setRateUi(state, { payload }) {
+      const { item: rate, roundedPrice } = payload
+      state.rate = rate.rateTypeId.name
+      state.price = getNumberWithSpaces(roundedPrice)
+    },
+    setServicePointUi(state, { payload }) {
+      const { pointName, isChecked, price } = payload
+      state[pointName] = isChecked ? 'Да' : ''
+      state.price = isChecked
+        ? getNumberWithSpaces(+state.price.replace(/\s/g, '') + price)
+        : getNumberWithSpaces(+state.price.replace(/\s/g, '') - price)
     },
   },
 })
 
-export const { setFullAddressUi, deleteFullAddressUi, setCarUi, setColorUi } =
-  orderUiSlice.actions
+export const {
+  setFullAddressUi,
+  deleteFullAddressUi,
+  setCarUi,
+  setColorUi,
+  setRentalDurationUi,
+  deleteRentalDurationUi,
+  setRateUi,
+  setServicePointUi,
+} = orderUiSlice.actions
 export const orderUiReducer = orderUiSlice.reducer
 
 export const getOrderUi = (store) => store.orderUi

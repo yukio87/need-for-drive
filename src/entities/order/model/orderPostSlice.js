@@ -5,13 +5,13 @@ const initialState = {
   pointId: {},
   carId: {},
   color: '',
-  dateFrom: '',
-  dateTo: '',
-  rateId: '',
-  isFullTank: '',
-  isNeedChildChair: '',
-  isRightWheel: '',
-  price: '',
+  dateFrom: 0,
+  dateTo: 0,
+  rateId: {},
+  isFullTank: false,
+  isNeedChildChair: false,
+  isRightWheel: false,
+  price: 0,
 }
 
 const orderPostSlice = createSlice({
@@ -45,9 +45,30 @@ const orderPostSlice = createSlice({
         carId: payload,
       }
     },
-    // temp
     setColorPost(state, { payload }) {
       state.color = payload
+    },
+    setDatePointPost(state, { payload }) {
+      const { pointName, value } = payload
+      state[pointName] = value || 0
+      state.rateId = {}
+      state.price = 0
+    },
+    deleteDatePointPost(state, { payload }) {
+      const { pointName } = payload
+      state[pointName] = 0
+      state.rateId = {}
+      state.price = 0
+    },
+    setRatePost(state, { payload }) {
+      const { item: rate, roundedPrice } = payload
+      state.rateId = rate
+      state.price = roundedPrice
+    },
+    setServicePointPost(state, { payload }) {
+      const { pointName, isChecked, price } = payload
+      state[pointName] = isChecked
+      state.price = isChecked ? state.price + price : state.price - price
     },
   },
 })
@@ -57,6 +78,10 @@ export const {
   deleteOrderPointPost,
   setCarPost,
   setColorPost,
+  setDatePointPost,
+  deleteDatePointPost,
+  setRatePost,
+  setServicePointPost,
 } = orderPostSlice.actions
 export const orderPostReducer = orderPostSlice.reducer
 

@@ -1,13 +1,23 @@
 @import '@app/styles/sass/main';
 
 .content {
+  scrollbar-width: none;
+
+  overflow-y: scroll;
   display: grid;
   grid-template-columns: 10fr 4fr;
   gap: 10px;
 
   width: 1376px;
+  height: 100%;
   margin: 0 auto;
   padding: 0 64px;
+
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   main {
     padding: 32px 16px 0 0;
@@ -40,9 +50,19 @@
   @media (max-width: 767px) {
     @include custom-scrollbar;
 
+    scrollbar-width: auto;
+
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
+    gap: 32px;
+
     padding: 16px;
+
+    -ms-overflow-style: inherit;
+
+    &::-webkit-scrollbar {
+      display: block;
+    }
   }
 }

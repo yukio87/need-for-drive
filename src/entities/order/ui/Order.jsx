@@ -6,8 +6,8 @@ import { options } from '../consts/options'
 import { useNavigateTo } from '../lib/hooks/useNavigateTo'
 import { usePageDataIsFilled } from '../lib/hooks/usePageDataIsFilled'
 import { getOrderUi } from '../model/orderUiSlice'
-import { OrderDetail } from './components'
-import { orderContainer, orderStyles, priceStyles } from './Order.module.scss'
+import { OrderDetail, Price } from './components'
+import { orderContainer, orderStyles } from './Order.module.scss'
 
 export function Order() {
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ export function Order() {
             ),
         )}
       </div>
-      {orderUi.price && <p className={priceStyles}>{orderUi.price}</p>}
+      <Price />
       <button
         disabled={
           nextPathName === pathLocationPage ? false : !curPageDataIsFilled

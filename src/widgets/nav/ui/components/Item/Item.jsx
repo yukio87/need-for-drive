@@ -3,7 +3,7 @@ import { Icon } from '@shared/ui/icon'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-import { iconBasicStyles } from '../../../consts/iconBasicStyles'
+import { iconBasicStyles } from './consts/iconBasicStyles'
 import { filledData, filledPrevData, unfilledData } from './Item.module.scss'
 
 export function Item({ navPath, navName, index, array }) {

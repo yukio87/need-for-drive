@@ -5,7 +5,7 @@
   $background: linear-gradient(to right, rgba(14, 194, 97), rgba(3, 159, 103)),
   $color: rgba(255, 255, 255),
   $fontWeight: 500,
-  $line-height: 21.09px
+  $lineHeight: 21.09px
 ) {
   cursor: pointer;
 
@@ -19,7 +19,7 @@
 
   font-size: $fontSize;
   font-weight: $fontWeight;
-  line-height: $line-height;
+  line-height: $lineHeight;
   color: $color;
   text-decoration: none;
 
@@ -62,4 +62,21 @@
   &::-webkit-scrollbar-thumb:hover {
     background-color: var(--c-grey-dark);
   }
+}
+
+@mixin horizontal-radio-btns($flexWrap: wrap, $gapX: 8px, $gapY: 16px) {
+  display: flex;
+  flex-wrap: $flexWrap;
+  gap: $gapX $gapY;
+}
+
+@mixin input($fontSize: 14px, $lineHeight: 16px) {
+  padding: 3px 8px;
+
+  font-size: $fontSize;
+  line-height: $lineHeight;
+
+  border: none;
+  border-bottom: 1px solid var(--c-grey-dark);
+  border-radius: 0;
 }

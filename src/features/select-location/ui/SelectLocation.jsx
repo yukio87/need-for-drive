@@ -181,7 +181,7 @@ export function SelectLocation() {
           </div>
         </Form.Group>
       </div>
-      {!isLoadingAddresses && <p className={title}>Выбрать на карте:</p>}
+      <p className={title}>Выбрать на карте:</p>
       <Map isLoadingAddresses={isLoadingAddresses} />
     </div>
   )

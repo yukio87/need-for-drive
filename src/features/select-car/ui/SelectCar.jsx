@@ -6,7 +6,7 @@ import { RadioButton } from '@shared/ui/radio-button'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-import { CarList } from './components/ui/CarList'
+import { CarList } from './components'
 import { container, inputContainer } from './SelectCar.module.scss'
 
 export function SelectCar() {
@@ -46,6 +46,7 @@ export function SelectCar() {
         {dataCategories && (
           <>
             <RadioButton
+              name="category"
               value="all-cars"
               id="all-cars"
               handleChange={handleChange}
@@ -56,6 +57,7 @@ export function SelectCar() {
             {receivedCategories.map((item) => (
               <RadioButton
                 key={item.id}
+                name="category"
                 value={item.id}
                 id={item.id}
                 handleChange={handleChange}
@@ -67,7 +69,7 @@ export function SelectCar() {
         )}
       </div>
       {isLoadingCars ? (
-        <Loader />
+        <Loader position="center" />
       ) : (
         <CarList cars={filteredCars.length > 0 ? filteredCars : receivedCars} />
       )}

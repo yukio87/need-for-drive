@@ -1,12 +1,4 @@
-.input-container {
-  display: flex;
-  gap: 16px;
-}
-
 .form-radio {
-  display: flex;
-  gap: 8px;
-
   input[type='radio'] {
     display: none;
   }
@@ -40,6 +32,16 @@
     margin: auto;
 
     background: url('../assets/icons/ellipse-1.png') 0 0 no-repeat;
+  }
+
+  input[type='radio']:disabled + label::before {
+    opacity: 0.25;
+    background: url('../assets/icons/ellipse-1.png') 0 0 no-repeat;
+  }
+
+  input[type='radio']:disabled + label {
+    cursor: not-allowed;
+    color: var(--c-grey-light);
   }
 
   input[type='radio']:checked + label::before {

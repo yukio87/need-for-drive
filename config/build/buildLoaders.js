@@ -40,6 +40,11 @@ export default function buildLoaders({ mode }) {
     },
   }
 
+  const cssLoader = {
+    test: /\.css$/i,
+    use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
+  }
+
   const scssLoader = {
     test: /\.s[ac]ss$/i,
     use: [
@@ -68,5 +73,5 @@ export default function buildLoaders({ mode }) {
     },
   }
 
-  return [assetLoader, scssLoader, babelLoader, svgrLoader]
+  return [assetLoader, cssLoader, scssLoader, babelLoader, svgrLoader]
 }

@@ -1,11 +1,16 @@
-import { SelectColor } from '@features/select-color'
-
-import { container } from './ExtraPageMain.module.scss'
+import { SelectAdditional } from '@features/select-additional'
+import { ErrorFallback } from '@shared/ui/error-fallback'
+import { QueryErrorResetBoundary } from '@tanstack/react-query'
+import { ErrorBoundary } from 'react-error-boundary'
 
 export function ExtraPageMain() {
   return (
-    <div className={container}>
-      <SelectColor />
-    </div>
+    <QueryErrorResetBoundary>
+      {({ reset }) => (
+        <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
+          <SelectAdditional />
+        </ErrorBoundary>
+      )}
+    </QueryErrorResetBoundary>
   )
 }

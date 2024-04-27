@@ -4,9 +4,11 @@ export function RadioButton({
   children,
   handleChange,
   id,
-  name = 'group',
+  name,
   value,
-  defaultChecked = false,
+  defaultChecked,
+  checked,
+  disabled,
 }) {
   return (
     <div className={formRadio}>
@@ -17,6 +19,8 @@ export function RadioButton({
         id={id}
         name={name}
         defaultChecked={defaultChecked}
+        checked={checked}
+        disabled={disabled}
       />
       <label htmlFor={id}>{children}</label>
     </div>
