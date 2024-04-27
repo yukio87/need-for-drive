@@ -6,8 +6,7 @@ import { options } from '../consts/options'
 import { useNavigateTo } from '../lib/hooks/useNavigateTo'
 import { usePageDataIsFilled } from '../lib/hooks/usePageDataIsFilled'
 import { getOrderUi } from '../model/orderUiSlice'
-import { OrderDetail } from './components'
-import { Price } from './components/Price/Price'
+import { OrderDetail, Price } from './components'
 import { orderContainer, orderStyles } from './Order.module.scss'
 
 export function Order() {

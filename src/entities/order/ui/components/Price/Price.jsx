@@ -1,5 +1,4 @@
 import { routesPaths } from '@shared/consts/routesPaths'
-import { getNumberWithSpaces } from '@shared/lib/format'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
@@ -22,8 +21,7 @@ export function Price() {
       {!price && pathname === pathExtraPage
         ? 'Цена: 0 ₽'
         : `Цена: ${
-            getNumberWithSpaces(price) ||
-            getPriceRangeString(carId.priceMin, carId.priceMax)
+            price || getPriceRangeString(carId.priceMin, carId.priceMax)
           } ₽`}
     </p>
   )
