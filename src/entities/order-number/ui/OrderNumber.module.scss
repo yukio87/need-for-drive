@@ -1,12 +1,11 @@
-.nav {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 16px;
-  align-items: center;
-
+.order-number {
   max-width: 1376px;
   margin: 0 auto;
   padding: 8px 64px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.41px;
+  color: var(--c-black);
 
   @media (max-width: 1439px) {
     width: 100%;
@@ -15,7 +14,6 @@
   }
 
   @media (max-width: 767px) {
-    column-gap: 7px;
     padding: 8px 16px;
   }
 }

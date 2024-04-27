@@ -39,6 +39,7 @@ export function Order() {
     <>
       <ModalConfirm
         isOpen={isOpen}
+        textAllowBtn={isPending ? 'Отправка...' : 'Подтвердить'}
         handleClickOnAllowBtn={mutate}
         handleClickOnDisallowBtn={() => setIsOpen(false)}
         disabledAllowBtn={isPending}
