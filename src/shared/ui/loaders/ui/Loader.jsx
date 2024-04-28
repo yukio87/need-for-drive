@@ -1,12 +1,18 @@
 import { colorGreyDark } from '@shared/consts/colors'
 import Spinner from 'react-bootstrap/Spinner'
 
-export function Loader({ size, animation, variant, position }) {
+export function Loader({
+  size,
+  animation,
+  variant,
+  position,
+  color = colorGreyDark,
+}) {
   const containerStyles = {
     display: 'grid',
     height: '100%',
     width: '100%',
-    color: colorGreyDark,
+    color,
   }
 
   const spinnerStyles = {

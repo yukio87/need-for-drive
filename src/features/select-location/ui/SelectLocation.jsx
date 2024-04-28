@@ -23,7 +23,6 @@ import {
   setAddressesWithCoords,
   setLocationPoint,
 } from '../model/slice'
-import { EmptyLabelMsg } from './components'
 import {
   container,
   form,
@@ -37,25 +36,17 @@ export function SelectLocation() {
   const dispatch = useDispatch()
   const { cityArr, addressArr, addressesWithCoords } = useSelector(getLocation)
 
-  const {
-    isLoading: isLoadingCities,
-    data: dataCities,
-    isError: isErrorCities,
-    error: errorCities,
-  } = useQuery({
+  const { isLoading: isLoadingCities, data: dataCities } = useQuery({
     queryKey: ['cities'],
     queryFn: () => api(urlCity, { method: 'get' }),
+    throwOnError: true,
   })
 
-  const {
-    isLoading: isLoadingAddresses,
-    data: dataAddresses,
-    isError: isErrorAddresses,
-    error: errorAddresses,
-  } = useQuery({
+  const { isLoading: isLoadingAddresses, data: dataAddresses } = useQuery({
     queryKey: ['addresses', cityArr[0]?.id],
     queryFn: () => api(`${urlAddress}/${cityArr[0]?.id}`, { method: 'get' }),
     enabled: cityArr.length > 0,
+    throwOnError: true,
   })
 
   useEffect(() => {
@@ -122,7 +113,7 @@ export function SelectLocation() {
               isLoadingCities ? (
                 <Loader size="20px" />
               ) : (
-                <EmptyLabelMsg isError={isErrorCities} error={errorCities} />
+                'Совпадений не найдено.'
               )
             }
             selected={cityArr}
@@ -159,10 +150,7 @@ export function SelectLocation() {
                 isLoadingAddresses ? (
                   <Loader size="20px" />
                 ) : (
-                  <EmptyLabelMsg
-                    isError={isErrorAddresses}
-                    error={errorAddresses}
-                  />
+                  'Совпадений не найдено.'
                 )
               }
               selected={addressArr}

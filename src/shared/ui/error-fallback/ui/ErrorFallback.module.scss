@@ -1,4 +1,7 @@
 .container {
+  height: 100vh;
+  padding: 50px;
+
   font-size: 14px;
   line-height: 16px;
   color: var(--c-black);
@@ -26,5 +29,9 @@
     &:active {
       filter: brightness(80%);
     }
+  }
+
+  @media (max-width: 767px) {
+    padding: 25px;
   }
 }

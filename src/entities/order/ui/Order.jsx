@@ -5,44 +5,59 @@ import { getNumberWithSpaces } from '@shared/lib/format'
 import { ModalConfirm } from '@shared/ui/modal-confirm'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { options } from '../consts/options'
 import { getPriceRangeString } from '../lib/format'
+import { useDisableBtn } from '../lib/hooks/useDisableBtn'
 import { useNavigateTo } from '../lib/hooks/useNavigateTo'
-import { usePageDataIsFilled } from '../lib/hooks/usePageDataIsFilled'
 import { getOrderPost } from '../model/orderPostSlice'
 import { getOrderUi } from '../model/orderUiSlice'
 import { OrderDetail } from './components'
-import { orderContainer, orderStyles, priceStyles } from './Order.module.scss'
+import {
+  btn,
+  cancelBtn,
+  orderContainer,
+  orderStyles,
+  priceStyles,
+} from './Order.module.scss'
 
 export function Order() {
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
   const orderUi = useSelector(getOrderUi)
   const orderPost = useSelector(getOrderPost)
+  const { pathname } = useLocation()
 
-  const { carId } = orderPost
-  const { pathOrderPageWithId } = routesPaths
-
-  const { isPending, mutate } = useMutation({
+  const { isPending: isCreating, mutate: createOrder } = useMutation({
     mutationFn: () => api(urlOrder, { method: 'post', data: orderPost }),
     onSuccess: (data) => navigate(`${pathOrderPage}/${data.data.data.id}`),
-    // onError: (err) => console.log(err),
+    onError: () => toast.error('Ошибка при отправке данных...'),
   })
 
-  const curPageDataIsFilled = usePageDataIsFilled()
+  const isDisabledBtn = useDisableBtn()
   const { nextPathName, buttonText } = useNavigateTo()
+
+  const { carId } = orderPost
+  const { pathOrderPageWithId, pathResultPage } = routesPaths
+  const isOrderPage = pathname.startsWith(pathOrderPageWithId.split('/:')[0])
+  const isResultPage = pathname === pathResultPage
+
+  const handleClick = () => {
+    if (isResultPage) setIsOpen(true)
+    else navigate(nextPathName)
+  }
 
   return (
     <>
       <ModalConfirm
         isOpen={isOpen}
-        textAllowBtn={isPending ? 'Отправка...' : 'Подтвердить'}
-        handleClickOnAllowBtn={mutate}
+        textAllowBtn={isCreating ? 'Подтверждение...' : 'Подтвердить'}
+        handleClickOnAllowBtn={createOrder}
         handleClickOnDisallowBtn={() => setIsOpen(false)}
-        disabledAllowBtn={isPending}
+        disabledAllowBtn={isCreating}
       />
       <div className={orderStyles}>
         <h5>Ваш заказ</h5>
@@ -66,14 +81,10 @@ export function Order() {
           </p>
         )}
         <button
-          disabled={
-            nextPathName === pathOrderPageWithId ? false : !curPageDataIsFilled
-          }
+          className={isOrderPage ? cancelBtn : btn}
+          disabled={isDisabledBtn}
           type="button"
-          onClick={() => {
-            if (nextPathName === pathOrderPageWithId) setIsOpen(true)
-            else navigate(nextPathName)
-          }}
+          onClick={handleClick}
         >
           {buttonText}
         </button>

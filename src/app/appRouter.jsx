@@ -28,8 +28,6 @@ export function appRouter(dataIsFilledForPages) {
   const { locationDataIsFilled, carDataIsFilled, extraDataIsFilled } =
     dataIsFilledForPages
 
-  const orderIsPlaced = true // temp
-
   return createBrowserRouter([
     {
       path: '/',
@@ -71,11 +69,7 @@ export function appRouter(dataIsFilledForPages) {
         },
         {
           path: pathOrderPageWithId,
-          element: (
-            <ProtectedRoute isAllowed={orderIsPlaced}>
-              <OrderPage />
-            </ProtectedRoute>
-          ),
+          element: <OrderPage />,
         },
       ],
     },

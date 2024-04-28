@@ -12,10 +12,6 @@
       margin-bottom: 0;
     }
   }
-
-  button {
-    @include style-button($width: 100%);
-  }
 }
 
 .order-container {
@@ -27,4 +23,18 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 16px;
+}
+
+.btn {
+  @include style-button($width: 100%);
+}
+
+.cancel-btn {
+  @include style-button($width: 100%);
+
+  background: linear-gradient(
+    to right,
+    rgb(73 48 19 / 100%),
+    rgb(123 12 59 / 100%)
+  );
 }

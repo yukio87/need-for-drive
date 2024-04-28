@@ -44,11 +44,17 @@ const orderUiSlice = createSlice({
         dateFrom && dateTo ? calcDateSubtraction(dateFrom, dateTo) : ''
       state.rate = ''
       state.price = ''
+      state.isFullTank = ''
+      state.isNeedChildChair = ''
+      state.isRightWheel = ''
     },
     deleteRentalDurationUi(state) {
       state.rentalDuration = ''
       state.rate = ''
       state.price = ''
+      state.isFullTank = ''
+      state.isNeedChildChair = ''
+      state.isRightWheel = ''
     },
     setRateUi(state, { payload }) {
       const { item: rate, roundedPrice } = payload

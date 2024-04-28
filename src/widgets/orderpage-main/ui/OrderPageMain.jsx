@@ -14,10 +14,10 @@ export function OrderPageMain() {
     throwOnError: true,
   })
 
+  const { dateFrom, isFullTank, carId } = data?.data.data || {}
+
   if (isLoading)
     return <Loader size="40px" animation="grow" position="center" />
-
-  const { dateFrom, isFullTank, carId } = data?.data.data || {}
 
   return (
     <OrderInfo

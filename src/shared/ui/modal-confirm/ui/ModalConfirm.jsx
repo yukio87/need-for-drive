@@ -8,7 +8,7 @@ import {
 
 export function ModalConfirm({
   isOpen,
-  header = 'Подтвердить заказ',
+  textHeader = 'Подтвердить заказ',
   textAllowBtn = 'Подтвердить',
   textDisallowBtn = 'Вернуться',
   handleClickOnAllowBtn,
@@ -18,7 +18,7 @@ export function ModalConfirm({
   return (
     <div className={isOpen ? openedModal : closedModal}>
       <div className={container}>
-        <p className={headerStyles}>{header}</p>
+        <p className={headerStyles}>{textHeader}</p>
         <div className={buttons}>
           <button
             onClick={handleClickOnAllowBtn}

@@ -28,6 +28,7 @@
 
   &:disabled {
     cursor: not-allowed;
+    color: var(--c-green);
     background-color: var(--c-grey-light);
     background-image: none;
   }
@@ -57,6 +58,10 @@
   flex-direction: column;
   gap: 32px;
   align-items: center;
+
+  @media (max-width: 767px) {
+    gap: 16px;
+  }
 }
 
 .headerStyles {
@@ -81,5 +86,10 @@
       rgb(73 48 19 / 100%),
       rgb(123 12 59 / 100%)
     );
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 8px;
   }
 }
