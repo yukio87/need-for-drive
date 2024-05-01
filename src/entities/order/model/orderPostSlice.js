@@ -76,6 +76,9 @@ const orderPostSlice = createSlice({
       state[pointName] = isChecked
       state.price = isChecked ? state.price + price : state.price - price
     },
+    resetStateOrderPost() {
+      return initialState
+    },
   },
 })
 
@@ -88,6 +91,7 @@ export const {
   deleteDatePointPost,
   setRatePost,
   setServicePointPost,
+  resetStateOrderPost,
 } = orderPostSlice.actions
 export const orderPostReducer = orderPostSlice.reducer
 

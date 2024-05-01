@@ -2,6 +2,7 @@ import { Map, resetMapState, setMapState } from '@entities/map'
 import {
   deleteFullAddressUi,
   deleteOrderPointPost,
+  getOrderPost,
   setFullAddressUi,
   setOrderPointPost,
 } from '@entities/order'
@@ -10,19 +11,13 @@ import { urlAddress, urlCity } from '@shared/consts/urls'
 import { Icon } from '@shared/ui/icon'
 import { Loader } from '@shared/ui/loaders'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo } from 'react'
 import Form from 'react-bootstrap/Form'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { iconBasicStyles } from '../consts/iconBasicStyles'
-import {
-  deleteLocationPoint,
-  getLocation,
-  setAddressesWithCoords,
-  setLocationPoint,
-} from '../model/slice'
+import { addCoords } from '../lib/addCoords'
 import {
   container,
   form,
@@ -34,7 +29,7 @@ import {
 
 export function SelectLocation() {
   const dispatch = useDispatch()
-  const { cityArr, addressArr, addressesWithCoords } = useSelector(getLocation)
+  const { cityId, pointId } = useSelector(getOrderPost)
 
   const { isLoading: isLoadingCities, data: dataCities } = useQuery({
     queryKey: ['cities'],
@@ -42,58 +37,37 @@ export function SelectLocation() {
     throwOnError: true,
   })
 
-  const { isLoading: isLoadingAddresses, data: dataAddresses } = useQuery({
-    queryKey: ['addresses', cityArr[0]?.id],
-    queryFn: () => api(`${urlAddress}/${cityArr[0]?.id}`, { method: 'get' }),
-    enabled: cityArr.length > 0,
+  const { isLoading: isLoadingAddresses, data: addresses } = useQuery({
+    queryKey: ['addresses', cityId.id],
+    queryFn: () => api(`${urlAddress}/${cityId.id}`, { method: 'get' }),
+    enabled: !!cityId.id,
+    select: (data) => addCoords(data, cityId),
     throwOnError: true,
   })
 
-  useEffect(() => {
-    if (dataAddresses?.data.data)
-      dispatch(
-        setAddressesWithCoords({
-          curCity: cityArr[0].name,
-          curAddresses: receivedAddresses,
-        }),
-      )
-  }, [dispatch, cityArr, receivedAddresses, dataAddresses])
-
   const receivedCities = dataCities?.data.data
 
-  const receivedAddresses = useMemo(
-    () =>
-      Array.isArray(dataAddresses?.data.data)
-        ? dataAddresses?.data.data
-        : [dataAddresses?.data.data],
-    [dataAddresses?.data.data],
-  )
-
   const handleOnChangeCity = (s) => {
-    dispatch(setLocationPoint({ pointName: 'cityArr', value: s }))
-    dispatch(deleteLocationPoint({ pointName: 'addressArr' }))
     dispatch(setOrderPointPost({ pointName: 'cityId', value: s }))
-    if (s.length === 0) dispatch(deleteFullAddressUi())
-    dispatch(setMapState())
+    if (!s.length) {
+      dispatch(deleteFullAddressUi())
+      dispatch(resetMapState())
+    } else dispatch(setMapState())
   }
 
   const handleOnClickDeleteCity = () => {
-    dispatch(deleteLocationPoint({ pointName: 'cityArr' }))
-    dispatch(deleteLocationPoint({ pointName: 'addressArr' }))
     dispatch(deleteFullAddressUi())
     dispatch(deleteOrderPointPost({ pointName: 'cityId' }))
     dispatch(resetMapState())
   }
 
   const handleOnChangeAddress = (s) => {
-    dispatch(setLocationPoint({ pointName: 'addressArr', value: s }))
     dispatch(setOrderPointPost({ pointName: 'pointId', value: s }))
-    if (s.length > 0) dispatch(setFullAddressUi({ cityArr, addressArr: s }))
-    if (s.length === 0) dispatch(deleteFullAddressUi())
+    if (s.length) dispatch(setFullAddressUi({ cityObj: cityId, addressArr: s }))
+    else dispatch(deleteFullAddressUi())
   }
 
   const handleOnClickDeleteAddress = () => {
-    dispatch(deleteLocationPoint({ pointName: 'addressArr' }))
     dispatch(deleteFullAddressUi())
     dispatch(deleteOrderPointPost({ pointName: 'pointId' }))
   }
@@ -116,10 +90,10 @@ export function SelectLocation() {
                 'Совпадений не найдено.'
               )
             }
-            selected={cityArr}
+            selected={cityId.id ? [cityId] : []}
             inputProps={{ maxLength: 150 }}
           >
-            {cityArr.length > 0 && (
+            {cityId.id && (
               <div
                 onClick={handleOnClickDeleteCity}
                 className={iconClearInput}
@@ -135,15 +109,13 @@ export function SelectLocation() {
           <Form.Label>Пункт выдачи</Form.Label>
           <div
             className={typeheadWrapper}
-            onFocus={() =>
-              cityArr.length === 0 && toast.error('Выберите город')
-            }
+            onFocus={() => !cityId.id && toast.error('Выберите город')}
           >
             <Typeahead
-              disabled={cityArr.length === 0}
+              disabled={!cityId.id}
               id="input-point"
               onChange={handleOnChangeAddress}
-              options={dataAddresses ? addressesWithCoords : []}
+              options={addresses || []}
               labelKey="address"
               placeholder="Начните вводить пункт ..."
               emptyLabel={
@@ -153,10 +125,10 @@ export function SelectLocation() {
                   'Совпадений не найдено.'
                 )
               }
-              selected={addressArr}
+              selected={pointId.id ? [pointId] : []}
               inputProps={{ maxLength: 150 }}
             >
-              {addressArr.length > 0 && (
+              {pointId.id && (
                 <div
                   onClick={handleOnClickDeleteAddress}
                   className={iconClearInput}
@@ -170,7 +142,7 @@ export function SelectLocation() {
         </Form.Group>
       </div>
       <p className={title}>Выбрать на карте:</p>
-      <Map isLoadingAddresses={isLoadingAddresses} />
+      <Map isLoadingAddresses={isLoadingAddresses} addresses={addresses} />
     </div>
   )
 }

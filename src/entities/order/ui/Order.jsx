@@ -1,3 +1,6 @@
+import { resetMapState } from '@entities/map'
+import { resetStateOrderPost, resetStateOrderUi } from '@entities/order'
+// import { resetStateLocation } from '@features/select-location'
 import { api } from '@shared/api/api'
 import { pathOrderPage, routesPaths } from '@shared/consts/routesPaths'
 import { urlOrder } from '@shared/consts/urls'
@@ -6,8 +9,8 @@ import { ModalConfirm } from '@shared/ui/modal-confirm'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import { options } from '../consts/options'
 import { getPriceRangeString } from '../lib/format'
@@ -30,6 +33,8 @@ export function Order() {
   const orderUi = useSelector(getOrderUi)
   const orderPost = useSelector(getOrderPost)
   const { pathname } = useLocation()
+  const dispatch = useDispatch()
+  const { orderId } = useParams()
 
   const { isPending: isCreating, mutate: createOrder } = useMutation({
     mutationFn: () => api(urlOrder, { method: 'post', data: orderPost }),
@@ -37,16 +42,29 @@ export function Order() {
     onError: () => toast.error('Ошибка при отправке данных...'),
   })
 
+  const { isPending: isDeleting, mutate: deleteOrder } = useMutation({
+    mutationFn: () => api(`${urlOrder}/${orderId}`, { method: 'delete' }),
+    onSuccess: () => {
+      dispatch(resetStateOrderPost())
+      dispatch(resetStateOrderUi())
+      dispatch(resetMapState())
+      navigate(pathLocationPage)
+      toast.success('Заказ был успешно отменен')
+    },
+    onError: () => toast.error('Ошибка при отмене заказа...'),
+  })
+
   const isDisabledBtn = useDisableBtn()
   const { nextPathName, buttonText } = useNavigateTo()
 
   const { carId } = orderPost
-  const { pathOrderPageWithId, pathResultPage } = routesPaths
+  const { pathLocationPage, pathOrderPageWithId, pathResultPage } = routesPaths
   const isOrderPage = pathname.startsWith(pathOrderPageWithId.split('/:')[0])
   const isResultPage = pathname === pathResultPage
 
   const handleClick = () => {
     if (isResultPage) setIsOpen(true)
+    else if (isOrderPage) deleteOrder()
     else navigate(nextPathName)
   }
 
@@ -82,11 +100,11 @@ export function Order() {
         )}
         <button
           className={isOrderPage ? cancelBtn : btn}
-          disabled={isDisabledBtn}
+          disabled={isDisabledBtn || isDeleting}
           type="button"
           onClick={handleClick}
         >
-          {buttonText}
+          {isDeleting ? 'Отмена заказа...' : buttonText}
         </button>
       </div>
     </>
