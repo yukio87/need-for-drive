@@ -11,6 +11,7 @@ export default function buildWebpack(options) {
     mode: mode ?? 'development',
     entry: paths.entry,
     output: {
+      publicPath: '/',
       path: paths.output,
       filename: '[name].[contenthash].js',
       clean: true,

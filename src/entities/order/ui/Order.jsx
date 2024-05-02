@@ -12,7 +12,6 @@ import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
-import { options } from '../consts/options'
 import { getPriceRangeString } from '../lib/format'
 import { useDisableBtn } from '../lib/hooks/useDisableBtn'
 import { useNavigateTo } from '../lib/hooks/useNavigateTo'
@@ -80,15 +79,7 @@ export function Order() {
       <div className={orderStyles}>
         <h5>Ваш заказ</h5>
         <div className={orderContainer}>
-          {Object.keys(orderUi).map(
-            (orderPoint, i) =>
-              orderUi[orderPoint] &&
-              orderPoint !== 'price' && (
-                <OrderDetail option={options[i]} key={orderPoint}>
-                  {orderUi[orderPoint]}
-                </OrderDetail>
-              ),
-          )}
+          <OrderDetail orderArr={Object.keys(orderUi)} />
         </div>
         {Object.keys(carId).length > 0 && (
           <p className={priceStyles}>
