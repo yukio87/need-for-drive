@@ -11,7 +11,7 @@ export function OrderDetail({ orderArr }) {
   return orderArr.map(
     (key, i) =>
       orderUi[key] &&
-      orderUi[key] !== 'price' && (
+      key !== 'price' && (
         <div className={orderDetail} key={key}>
           <span className={option}>{options[i]}</span>
           <span className={dots} />
