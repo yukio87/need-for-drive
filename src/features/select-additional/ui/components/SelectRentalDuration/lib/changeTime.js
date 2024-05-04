@@ -18,7 +18,7 @@ export const changeTime = (
     })
     .valueOf()
 
-  if (!isBeginningOfDay) return date.getTime()
+  if (!isBeginningOfDay) return date?.getTime()
 
   if (isFromOperation) {
     if (dateTo) {

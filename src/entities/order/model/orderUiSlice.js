@@ -18,9 +18,10 @@ const orderUiSlice = createSlice({
   initialState,
   reducers: {
     setFullAddressUi(state, { payload }) {
+      const { cityObj, addressArr } = payload
       return {
         ...initialState,
-        fullAddress: `${payload.cityArr[0].name}/${payload.addressArr[0].address}`,
+        fullAddress: `${cityObj.name}/${addressArr[0].address}`,
       }
     },
     deleteFullAddressUi() {
@@ -44,11 +45,17 @@ const orderUiSlice = createSlice({
         dateFrom && dateTo ? calcDateSubtraction(dateFrom, dateTo) : ''
       state.rate = ''
       state.price = ''
+      state.isFullTank = ''
+      state.isNeedChildChair = ''
+      state.isRightWheel = ''
     },
     deleteRentalDurationUi(state) {
       state.rentalDuration = ''
       state.rate = ''
       state.price = ''
+      state.isFullTank = ''
+      state.isNeedChildChair = ''
+      state.isRightWheel = ''
     },
     setRateUi(state, { payload }) {
       const { item: rate, roundedPrice } = payload
@@ -62,6 +69,9 @@ const orderUiSlice = createSlice({
         ? getNumberWithSpaces(+state.price.replace(/\s/g, '') + price)
         : getNumberWithSpaces(+state.price.replace(/\s/g, '') - price)
     },
+    resetStateOrderUi() {
+      return initialState
+    },
   },
 })
 
@@ -74,6 +84,7 @@ export const {
   deleteRentalDurationUi,
   setRateUi,
   setServicePointUi,
+  resetStateOrderUi,
 } = orderUiSlice.actions
 export const orderUiReducer = orderUiSlice.reducer
 

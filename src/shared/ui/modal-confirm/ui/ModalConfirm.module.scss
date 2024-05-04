@@ -1,0 +1,94 @@
+@import '@app/styles/sass/main';
+
+%button-styles {
+  cursor: pointer;
+
+  padding: 12px 24px;
+
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21.09px;
+  color: rgb(255 255 255);
+  text-decoration: none;
+
+  background: linear-gradient(to right, rgb(14 194 97), rgb(3 159 103));
+  border: none;
+  border-radius: 8px;
+
+  transition: filter 0.2s linear;
+
+  &:hover,
+  &:focus {
+    filter: brightness(90%);
+  }
+
+  &:active {
+    filter: brightness(80%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--c-grey-light);
+    background-image: none;
+  }
+}
+
+.opened-modal {
+  position: fixed;
+  z-index: 102;
+  top: 0;
+  left: 0;
+
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgb(255 255 255 / 90%);
+}
+
+.closed-modal {
+  display: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+
+  @media (max-width: 767px) {
+    gap: 16px;
+  }
+}
+
+.headerStyles {
+  font-size: 24px;
+  line-height: 28.13px;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+
+  button:first-child {
+    @extend %button-styles;
+  }
+
+  button:last-child {
+    @extend %button-styles;
+
+    color: var(--c-grey-light);
+    background: linear-gradient(
+      to right,
+      rgb(73 48 19 / 100%),
+      rgb(123 12 59 / 100%)
+    );
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

@@ -1,5 +1,12 @@
-import { container } from './ResultPageMain.module.scss'
+import { getOrderPost } from '@entities/order'
+import { OrderInfo } from '@shared/ui/order-info'
+import { useSelector } from 'react-redux'
 
 export function ResultPageMain() {
-  return <div className={container}>Result page main</div>
+  const { carId, dateFrom, isFullTank } = useSelector(getOrderPost)
+  const { thumbnail, name, number, tank } = carId
+
+  return (
+    <OrderInfo data={{ dateFrom, isFullTank, thumbnail, name, number, tank }} />
+  )
 }

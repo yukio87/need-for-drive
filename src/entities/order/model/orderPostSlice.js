@@ -53,12 +53,18 @@ const orderPostSlice = createSlice({
       state[pointName] = value || 0
       state.rateId = {}
       state.price = 0
+      state.isFullTank = false
+      state.isNeedChildChair = false
+      state.isRightWheel = false
     },
     deleteDatePointPost(state, { payload }) {
       const { pointName } = payload
       state[pointName] = 0
       state.rateId = {}
       state.price = 0
+      state.isFullTank = false
+      state.isNeedChildChair = false
+      state.isRightWheel = false
     },
     setRatePost(state, { payload }) {
       const { item: rate, roundedPrice } = payload
@@ -69,6 +75,9 @@ const orderPostSlice = createSlice({
       const { pointName, isChecked, price } = payload
       state[pointName] = isChecked
       state.price = isChecked ? state.price + price : state.price - price
+    },
+    resetStateOrderPost() {
+      return initialState
     },
   },
 })
@@ -82,6 +91,7 @@ export const {
   deleteDatePointPost,
   setRatePost,
   setServicePointPost,
+  resetStateOrderPost,
 } = orderPostSlice.actions
 export const orderPostReducer = orderPostSlice.reducer
 

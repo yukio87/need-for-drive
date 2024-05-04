@@ -8,7 +8,7 @@ export function useNavigateTo() {
 
   return Object.values(routesPaths).reduce(
     (acc, item, index, array) =>
-      item === pathname
+      pathname.startsWith(item.split('/:')[0])
         ? {
             ...acc,
             nextPathName: array[index + 1],

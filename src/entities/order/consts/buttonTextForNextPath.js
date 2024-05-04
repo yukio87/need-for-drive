@@ -5,7 +5,7 @@ const {
   pathCarPage,
   pathExtraPage,
   pathResultPage,
-  pathConfirmedPage,
+  pathOrderPageWithId,
 } = routesPaths
 
 export const buttonTextForNextPath = {
@@ -13,5 +13,5 @@ export const buttonTextForNextPath = {
   [pathCarPage]: 'Дополнительно',
   [pathExtraPage]: 'Итого',
   [pathResultPage]: 'Заказать',
-  [pathConfirmedPage]: 'Отменить',
+  [pathOrderPageWithId]: 'Отменить',
 }

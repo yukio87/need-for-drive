@@ -1,4 +1,4 @@
-@import '../../../app/styles/sass/main';
+@import '@app/styles/sass/main';
 
 .order-styles {
   color: var(--c-black);
@@ -12,12 +12,29 @@
       margin-bottom: 0;
     }
   }
-
-  button {
-    @include style-button($width: 100%);
-  }
 }
 
 .order-container {
   margin-bottom: 32px;
+}
+
+.price-styles {
+  margin-bottom: 32px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.btn {
+  @include style-button($width: 100%);
+}
+
+.cancel-btn {
+  @include style-button($width: 100%);
+
+  background: linear-gradient(
+    to right,
+    rgb(73 48 19 / 100%),
+    rgb(123 12 59 / 100%)
+  );
 }

@@ -1,4 +1,4 @@
-import { getLocation } from '@features/select-location'
+import { getOrderPost } from '@entities/order'
 import { Loader } from '@shared/ui/loaders'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { useSelector } from 'react-redux'
@@ -8,12 +8,12 @@ import { getMap } from '../model/slice'
 import { ChangeView } from './components'
 import { leafletContainer, mapContainer } from './Map.module.scss'
 
-export function Map({ isLoadingAddresses }) {
-  const { addressArr, addressesWithCoords } = useSelector(getLocation)
+export function Map({ isLoadingAddresses, addresses }) {
   const { isMapStateReset } = useSelector(getMap)
+  const { pointId } = useSelector(getOrderPost)
 
-  const allAddresses = addressesWithCoords.map((item) => item.position)
-  const selectedAddress = addressArr[0]?.position
+  const allAddresses = addresses?.map((item) => item.position)
+  const selectedAddress = pointId.position
 
   return (
     <div className={mapContainer}>
@@ -26,15 +26,13 @@ export function Map({ isLoadingAddresses }) {
           scrollWheelZoom={true}
           className={leafletContainer}
         >
-          <ChangeView
-            coords={addressArr.length > 0 ? [selectedAddress] : allAddresses}
-          />
+          <ChangeView coords={pointId.id ? [selectedAddress] : allAddresses} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
           />
           {!isMapStateReset &&
-            addressesWithCoords.map((point) => (
+            addresses.map((point) => (
               <Marker
                 position={[point.position?.lat, point.position.lng]}
                 key={point.position.lat}
